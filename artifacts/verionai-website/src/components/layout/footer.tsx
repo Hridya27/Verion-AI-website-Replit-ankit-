@@ -4,54 +4,30 @@ import { motion } from "framer-motion";
 const BLACK = "#111827";
 const PINK = "#D4196A";
 
-function BreathingBars({ color, height = 11, barW = 2, gap = 2 }: { color: string; height?: number; barW?: number; gap?: number }) {
+function BreathingBars() {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: `${gap}px`, height: `${height}px`, flexShrink: 0 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "11px", flexShrink: 0 }}>
       <motion.span
         animate={{ scaleY: [0.35, 1, 0.35] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-        style={{ width: `${barW}px`, height: `${height}px`, borderRadius: "99px", backgroundColor: color, display: "block", transformOrigin: "center" }}
+        style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
       />
       <motion.span
         animate={{ scaleY: [1, 0.35, 1] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-        style={{ width: `${barW}px`, height: `${height}px`, borderRadius: "99px", backgroundColor: color, display: "block", transformOrigin: "center" }}
+        style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
       />
     </span>
   );
 }
 
-function CustomI({ stemColor, dotColor, size }: { stemColor: string; dotColor: string; size: number }) {
-  const dotSize = size * 0.18;
-  const stemW = size * 0.12;
-  const stemH = size * 0.46;
-  const gap = size * 0.06;
-  const totalH = dotSize + gap + stemH;
-  return (
-    <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", height: `${totalH}px`, verticalAlign: "bottom", flexShrink: 0 }}>
-      <span style={{ width: `${dotSize}px`, height: `${dotSize}px`, borderRadius: "50%", backgroundColor: dotColor, flexShrink: 0 }} />
-      <span style={{ height: `${gap}px`, flexShrink: 0 }} />
-      <span style={{ width: `${stemW}px`, height: `${stemH}px`, borderRadius: "2px", backgroundColor: stemColor, flexShrink: 0 }} />
-    </span>
-  );
-}
-
-const FS = 18;
-
 function FooterLogo() {
   return (
     <Link href="/" className="flex items-center">
-      <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 800, fontSize: `${FS}px`, letterSpacing: "-0.03em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "4px", userSelect: "none" }}>
-        <span style={{ color: BLACK, display: "inline-flex", alignItems: "center" }}>
-          <span>Ver</span>
-          <CustomI stemColor={BLACK} dotColor={PINK} size={FS} />
-          <span>on</span>
-        </span>
-        <BreathingBars color={PINK} height={11} barW={2} gap={2} />
-        <span style={{ color: PINK, display: "inline-flex", alignItems: "center" }}>
-          <span>a</span>
-          <CustomI stemColor={PINK} dotColor={BLACK} size={FS} />
-        </span>
+      <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 800, fontSize: "18px", letterSpacing: "-0.03em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "4px", userSelect: "none" }}>
+        <span style={{ color: BLACK }}>Verion</span>
+        <BreathingBars />
+        <span style={{ color: PINK }}>ai</span>
       </span>
     </Link>
   );
