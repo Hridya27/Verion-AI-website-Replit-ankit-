@@ -12,23 +12,29 @@ import Architecture from "@/pages/architecture";
 import HowItWorks from "@/pages/how-it-works";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
+import Connect from "@/pages/connect";
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/solutions" component={Solutions} />
-        <Route path="/industries" component={Industries} />
-        <Route path="/architecture" component={Architecture} />
-        <Route path="/how-it-works" component={HowItWorks} />
-        <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <Route path="/connect" component={Connect} />
+      <Route>
+        <Layout>
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/solutions" component={Solutions} />
+            <Route path="/industries" component={Industries} />
+            <Route path="/architecture" component={Architecture} />
+            <Route path="/how-it-works" component={HowItWorks} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route component={NotFound} />
+          </Switch>
+        </Layout>
+      </Route>
+    </Switch>
   );
 }
 

@@ -11,8 +11,8 @@ function StyledModuleName({ name, className }: { name: string; className?: strin
   if (name === "Verionai Connect") {
     return (
       <span className={className}>
-        <span style={{ color: pink }}>Verionai</span>
-        <span style={{ color: black }}> Connect</span>
+        <span style={{ color: pink }}>Verion</span>
+        <span style={{ color: black }}>ai Connect</span>
       </span>
     );
   }
@@ -46,7 +46,7 @@ const modules: Module[] = [
       "Points economy & incentive engine",
       "Hire-to-retire process automation",
     ],
-    externalLink: "https://a1676b3c-5801-4366-8da5-14d049128b06-00-1xaudefy2swlh.worf.replit.dev/product",
+    externalLink: "/connect",
   },
   {
     id: "verion-trade-scheme",
@@ -186,14 +186,9 @@ function PreviewCard({ module }: { module: Module }) {
 
   if (module.externalLink) {
     return (
-      <a
-        href={module.externalLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block group"
-      >
+      <Link href={module.externalLink} className="block group">
         {card}
-      </a>
+      </Link>
     );
   }
 
