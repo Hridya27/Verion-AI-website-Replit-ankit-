@@ -4,71 +4,39 @@ import { motion } from "framer-motion";
 const BLACK = "#111827";
 const PINK = "#D4196A";
 
-function AnimatedCapsuleDot({ color, delay = 0 }: { color: string; delay?: number }) {
-  return (
-    <motion.span
-      animate={{ scaleY: [1, 0.28, 1] }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay,
-        repeatType: "loop",
-      }}
-      style={{
-        width: "2.2px",
-        height: "5.5px",
-        borderRadius: "99px",
-        backgroundColor: color,
-        display: "block",
-        transformOrigin: "center",
-        flexShrink: 0,
-      }}
-    />
-  );
-}
-
-function AnimatedI({
-  color,
-  stemW = 5.5,
-  stemH = 10,
-  containerH = "1.1rem",
-}: {
-  color: string;
-  stemW?: number;
-  stemH?: number;
-  containerH?: string;
-}) {
+function BreathingBars({ color, height = 11, barW = 2, gap = 2 }: { color: string; height?: number; barW?: number; gap?: number }) {
   return (
     <span
       style={{
         display: "inline-flex",
-        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "flex-end",
-        height: containerH,
-        position: "relative",
+        gap: `${gap}px`,
+        height: `${height}px`,
+        flexShrink: 0,
       }}
     >
-      <span
+      <motion.span
+        animate={{ scaleY: [0.35, 1, 0.35] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "1.5px",
-          position: "absolute",
-          top: "1px",
-        }}
-      >
-        <AnimatedCapsuleDot color={color} delay={0} />
-        <AnimatedCapsuleDot color={color} delay={0.75} />
-      </span>
-      <span
-        style={{
-          width: `${stemW}px`,
-          height: `${stemH}px`,
-          borderRadius: "2px",
+          width: `${barW}px`,
+          height: `${height}px`,
+          borderRadius: "99px",
           backgroundColor: color,
           display: "block",
+          transformOrigin: "center",
+        }}
+      />
+      <motion.span
+        animate={{ scaleY: [1, 0.35, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
+        style={{
+          width: `${barW}px`,
+          height: `${height}px`,
+          borderRadius: "99px",
+          backgroundColor: color,
+          display: "block",
+          transformOrigin: "center",
         }}
       />
     </span>
@@ -86,15 +54,14 @@ function FooterLogo() {
           letterSpacing: "-0.03em",
           lineHeight: 1,
           display: "inline-flex",
-          alignItems: "flex-end",
+          alignItems: "center",
+          gap: "4px",
           userSelect: "none",
         }}
       >
-        <span style={{ color: BLACK }}>Ver</span>
-        <AnimatedI color={BLACK} />
-        <span style={{ color: BLACK }}>on</span>
-        <span style={{ color: PINK }}>a</span>
-        <AnimatedI color={PINK} />
+        <span style={{ color: BLACK }}>Verion</span>
+        <BreathingBars color={PINK} height={11} barW={2} gap={2} />
+        <span style={{ color: PINK }}>ai</span>
       </span>
     </Link>
   );

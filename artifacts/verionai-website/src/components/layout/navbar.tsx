@@ -15,117 +15,64 @@ const navLinks = [
 const BLACK = "#111827";
 const PINK = "#D4196A";
 
-function AnimatedCapsuleDot({ color, delay = 0 }: { color: string; delay?: number }) {
-  return (
-    <motion.span
-      animate={{ scaleY: [1, 0.28, 1] }}
-      transition={{
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay,
-        repeatType: "loop",
-      }}
-      style={{
-        width: "2.8px",
-        height: "7px",
-        borderRadius: "99px",
-        backgroundColor: color,
-        display: "block",
-        transformOrigin: "center",
-        flexShrink: 0,
-      }}
-    />
-  );
-}
-
-function AnimatedI({
-  color,
-  stemW = 6.5,
-  stemH = 13,
-  topOffset = "1px",
-  containerH = "1.35rem",
-}: {
-  color: string;
-  stemW?: number;
-  stemH?: number;
-  topOffset?: string;
-  containerH?: string;
-}) {
+function BreathingBars({ color, height = 14, barW = 2.5, gap = 2.5 }: { color: string; height?: number; barW?: number; gap?: number }) {
   return (
     <span
       style={{
         display: "inline-flex",
-        flexDirection: "column",
         alignItems: "center",
-        justifyContent: "flex-end",
-        height: containerH,
-        position: "relative",
+        gap: `${gap}px`,
+        height: `${height}px`,
+        flexShrink: 0,
       }}
     >
-      {/* Two animated capsule dots — alternate phase */}
-      <span
+      <motion.span
+        animate={{ scaleY: [0.35, 1, 0.35] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
         style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "2px",
-          position: "absolute",
-          top: topOffset,
-        }}
-      >
-        <AnimatedCapsuleDot color={color} delay={0} />
-        <AnimatedCapsuleDot color={color} delay={0.75} />
-      </span>
-
-      {/* Stem */}
-      <span
-        style={{
-          width: `${stemW}px`,
-          height: `${stemH}px`,
-          borderRadius: "2px",
+          width: `${barW}px`,
+          height: `${height}px`,
+          borderRadius: "99px",
           backgroundColor: color,
           display: "block",
+          transformOrigin: "center",
+        }}
+      />
+      <motion.span
+        animate={{ scaleY: [1, 0.35, 1] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
+        style={{
+          width: `${barW}px`,
+          height: `${height}px`,
+          borderRadius: "99px",
+          backgroundColor: color,
+          display: "block",
+          transformOrigin: "center",
         }}
       />
     </span>
   );
 }
 
-function VerionLogo({ size = "lg" }: { size?: "lg" | "sm" }) {
-  const fontSize = size === "lg" ? "1.35rem" : "1.1rem";
-  const stemH = size === "lg" ? 13 : 10;
-  const stemW = size === "lg" ? 6.5 : 5.5;
-  const containerH = size === "lg" ? "1.35rem" : "1.1rem";
-
+function VerionLogo() {
   return (
     <Link href="/" className="flex items-center">
       <span
         style={{
           fontFamily: "Inter, sans-serif",
           fontWeight: 800,
-          fontSize,
+          fontSize: "1.35rem",
           letterSpacing: "-0.03em",
           lineHeight: 1,
           display: "inline-flex",
-          alignItems: "flex-end",
-          gap: 0,
+          alignItems: "center",
+          gap: "5px",
           userSelect: "none",
         }}
       >
-        {/* "Ver" in black */}
-        <span style={{ color: BLACK }}>Ver</span>
-
-        {/* Animated "i" in black (for "Verion") */}
-        <AnimatedI color={BLACK} stemW={stemW} stemH={stemH} containerH={containerH} />
-
-        {/* "on" in black */}
-        <span style={{ color: BLACK }}>on</span>
-
-        {/* "a" in pink (lowercase) */}
-        <span style={{ color: PINK }}>a</span>
-
-        {/* Animated "i" in pink (for "ai") */}
-        <AnimatedI color={PINK} stemW={stemW} stemH={stemH} containerH={containerH} />
+        <span style={{ color: BLACK }}>Verion</span>
+        <BreathingBars color={PINK} height={14} barW={2.5} gap={2.5} />
+        <span style={{ color: PINK }}>ai</span>
       </span>
     </Link>
   );
@@ -156,9 +103,8 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <VerionLogo size="lg" />
+          <VerionLogo />
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
