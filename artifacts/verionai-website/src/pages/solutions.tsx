@@ -21,6 +21,7 @@ const modules = [
       "Points economy & incentive engine",
       "Hire-to-retire process automation",
     ],
+    externalLink: "https://a1676b3c-5801-4366-8da5-14d049128b06-00-1xaudefy2swlh.worf.replit.dev/product",
     index: 0,
   },
   {
@@ -111,7 +112,12 @@ export default function Solutions() {
           {/* Module index nav */}
           <div className="flex flex-wrap gap-3 mt-10">
             {modules.map((m) => (
-              <a key={m.id} href={`#${m.id}`}>
+              <a
+                key={m.id}
+                href={m.externalLink ?? `#${m.id}`}
+                target={m.externalLink ? "_blank" : undefined}
+                rel={m.externalLink ? "noopener noreferrer" : undefined}
+              >
                 <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 hover:text-pink transition-colors cursor-pointer bg-white">
                   <span className="text-gray-300 w-4 h-4 flex items-center justify-center">{m.icon}</span>
                   {m.name}
@@ -158,7 +164,14 @@ export default function Solutions() {
                     >
                       {module.icon}
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-950">{module.name}</h2>
+                    {module.externalLink ? (
+                      <a href={module.externalLink} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2">
+                        <h2 className="text-2xl font-bold text-gray-950 group-hover:underline decoration-pink-400">{module.name}</h2>
+                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-pink transition-colors" />
+                      </a>
+                    ) : (
+                      <h2 className="text-2xl font-bold text-gray-950">{module.name}</h2>
+                    )}
                   </div>
 
                   <p className="text-gray-500 leading-relaxed mb-8 text-[0.95rem]">{module.desc}</p>
@@ -190,19 +203,50 @@ export default function Solutions() {
                     ))}
                   </ul>
 
-                  <Link href="/contact">
-                    <Button
-                      className="rounded-md text-white font-semibold text-sm h-10 px-6"
-                      style={{ backgroundColor: pink }}
-                    >
-                      Request a Demo
-                    </Button>
-                  </Link>
+                  {module.externalLink ? (
+                    <a href={module.externalLink} target="_blank" rel="noopener noreferrer">
+                      <Button
+                        className="rounded-md text-white font-semibold text-sm h-10 px-6"
+                        style={{ backgroundColor: pink }}
+                      >
+                        View Product
+                      </Button>
+                    </a>
+                  ) : (
+                    <Link href="/contact">
+                      <Button
+                        className="rounded-md text-white font-semibold text-sm h-10 px-6"
+                        style={{ backgroundColor: pink }}
+                      >
+                        Request a Demo
+                      </Button>
+                    </Link>
+                  )}
                 </div>
 
                 {/* Right: Abstract UI preview */}
                 <div className="lg:w-1/2 w-full">
-                  <div className="rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white">
+                  {module.externalLink && (
+                    <div className="mb-3 flex items-center gap-2">
+                      <span className="text-xs text-gray-400">Live product →</span>
+                      <a
+                        href={module.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-medium underline decoration-pink-300"
+                        style={{ color: pink }}
+                      >
+                        {module.externalLink.replace("https://", "")}
+                      </a>
+                    </div>
+                  )}
+                  <a
+                    href={module.externalLink ?? undefined}
+                    target={module.externalLink ? "_blank" : undefined}
+                    rel={module.externalLink ? "noopener noreferrer" : undefined}
+                    className={module.externalLink ? "block group" : "block"}
+                  >
+                  <div className={`rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white transition-shadow ${module.externalLink ? "group-hover:shadow-md group-hover:border-pink-200" : ""}`}>
                     {/* App chrome */}
                     <div className="h-10 border-b border-gray-100 bg-gray-50 flex items-center px-4 gap-3">
                       <div className="flex gap-1.5">
@@ -263,6 +307,7 @@ export default function Solutions() {
                       </div>
                     </div>
                   </div>
+                  </a>
                 </div>
               </div>
             </div>
