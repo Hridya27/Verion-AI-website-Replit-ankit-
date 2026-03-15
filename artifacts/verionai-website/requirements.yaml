@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For premium page transitions, scroll reveals, and micro-interactions"
+  "react-hook-form": "For robust contact form handling"
+  "@hookform/resolvers": "Zod validation integration for the contact form"
+
+images:
+  - path: "artifacts/verionai-website/public/images/hero-bg.png"
+    description: "Abstract, extremely dark, sleek and futuristic enterprise AI background. Deep midnight blues and blacks with subtle, glowing cyan and indigo geometric nodes and neural network lines. Very professional, minimal, high-end tech corporate vibe."
+    aspect_ratio: "16:9"
+  - path: "artifacts/verionai-website/public/images/architecture-bg.png"
+    description: "Abstract representation of cloud enterprise architecture. Dark theme. Layered glowing grids, data streams, and structural blocks in deep blue and cyan. Professional, tech-forward."
+    aspect_ratio: "16:9"
+  - path: "artifacts/verionai-website/public/images/abstract-globe.png"
+    description: "Dark, sleek abstract glowing wireframe globe or global network showing connectivity. Professional enterprise scale, minimalist dark background with electric blue nodes."
+    aspect_ratio: "1:1"
+
+notes:
+  - App is fully frontend. Contact form uses a simulated submission with a toast notification.
+  - The design is strictly dark-mode-first to align with the "dark professional enterprise tech" aesthetic.
