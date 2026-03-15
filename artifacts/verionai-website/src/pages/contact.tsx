@@ -7,14 +7,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
-// Form validation schema
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
   company: z.string().min(2, "Company name is required"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
   intent: z.enum(["discovery", "demo"]).default("discovery")
 });
@@ -31,7 +29,6 @@ export default function Contact() {
       name: "",
       company: "",
       email: "",
-      phone: "",
       message: "",
       intent: "discovery"
     }
@@ -39,13 +36,12 @@ export default function Contact() {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSubmitting(false);
     
     toast({
-      title: data.intent === 'demo' ? "Demo Requested!" : "Discovery Call Booked!",
-      description: "Our enterprise team will contact you within 24 hours.",
+      title: "Message Received",
+      description: "Our enterprise team will contact you shortly.",
     });
     
     form.reset();
@@ -54,56 +50,17 @@ export default function Contact() {
   return (
     <div className="pt-24 pb-20">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">Let's Build Together</h1>
-          <p className="text-xl text-muted-foreground">
-            Connect with our enterprise architects to see how VerionAI can transform your organizational workflows in days.
+        <div className="max-w-3xl mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Let's Build Together</h1>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Connect with our enterprise architects to see how VerionAI can transform your organizational workflows in days, not years.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-8">
-            <div className="glass-panel p-8 rounded-2xl h-full">
-              <h3 className="text-2xl font-bold text-white mb-8">Contact Information</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-400">Email Us</h4>
-                    <p className="text-white font-medium">enterprise@verionai.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-400">Call Us</h4>
-                    <p className="text-white font-medium">+1 (800) 555-0199</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-400">Headquarters</h4>
-                    <p className="text-white font-medium">Silicon Valley, CA<br/>Global operations worldwide.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Form */}
           <div className="lg:col-span-2">
-            <div className="glass-panel p-8 md:p-10 rounded-2xl">
+            <div className="p-8 rounded-lg border border-white/10 bg-card">
               <Form {...form}>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -112,9 +69,9 @@ export default function Contact() {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Full Name</FormLabel>
+                          <FormLabel className="text-sm text-gray-300">Full Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="John Doe" className="bg-background/50 border-white/10 h-12 focus-visible:ring-primary/50" {...field} />
+                            <Input placeholder="Jane Doe" className="bg-background border-white/10 rounded-md" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -125,38 +82,9 @@ export default function Contact() {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-gray-300">Company Name</FormLabel>
+                          <FormLabel className="text-sm text-gray-300">Company Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Acme Corp" className="bg-background/50 border-white/10 h-12 focus-visible:ring-primary/50" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-300">Work Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="john@acmecorp.com" className="bg-background/50 border-white/10 h-12 focus-visible:ring-primary/50" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="phone"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-gray-300">Phone Number (Optional)</FormLabel>
-                          <FormControl>
-                            <Input type="tel" placeholder="+1 (555) 000-0000" className="bg-background/50 border-white/10 h-12 focus-visible:ring-primary/50" {...field} />
+                            <Input placeholder="Acme Corp" className="bg-background border-white/10 rounded-md" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -166,14 +94,28 @@ export default function Contact() {
 
                   <FormField
                     control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-sm text-gray-300">Work Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="jane@acmecorp.com" className="bg-background border-white/10 rounded-md" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-gray-300">How can we help?</FormLabel>
+                        <FormLabel className="text-sm text-gray-300">How can we help?</FormLabel>
                         <FormControl>
                           <Textarea 
                             placeholder="Tell us about your enterprise challenges or the systems you're looking to augment..." 
-                            className="bg-background/50 border-white/10 min-h-[150px] resize-none focus-visible:ring-primary/50" 
+                            className="bg-background border-white/10 min-h-[120px] resize-none rounded-md" 
                             {...field} 
                           />
                         </FormControl>
@@ -182,7 +124,7 @@ export default function Contact() {
                     )}
                   />
 
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <div className="flex flex-col sm:flex-row gap-4 pt-2">
                     <Button 
                       type="button" 
                       onClick={() => {
@@ -190,7 +132,7 @@ export default function Contact() {
                         form.handleSubmit(onSubmit)();
                       }}
                       disabled={isSubmitting}
-                      className="flex-1 h-14 rounded-xl bg-primary hover:bg-primary/90 text-background font-bold text-lg shadow-[0_0_15px_rgba(0,255,255,0.2)]"
+                      className="rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
                     >
                       {isSubmitting && form.getValues('intent') === 'discovery' ? "Submitting..." : "Book a Discovery Call"}
                     </Button>
@@ -202,13 +144,34 @@ export default function Contact() {
                         form.handleSubmit(onSubmit)();
                       }}
                       disabled={isSubmitting}
-                      className="flex-1 h-14 rounded-xl border-white/20 hover:bg-white/5 text-white font-bold text-lg"
+                      className="rounded-md border-white/20 hover:bg-white/5 text-white font-medium"
                     >
                       {isSubmitting && form.getValues('intent') === 'demo' ? "Submitting..." : "Request Demo"}
                     </Button>
                   </div>
                 </form>
               </Form>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="lg:col-span-1">
+            <div className="p-8 rounded-lg border border-white/10 bg-background space-y-8">
+              <div>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact</h3>
+                <div className="flex items-start gap-3 text-muted-foreground">
+                  <Mail className="w-5 h-5 text-primary shrink-0" />
+                  <span className="text-sm">enterprise@verionai.com</span>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Global Headquarters</h3>
+                <div className="flex items-start gap-3 text-muted-foreground">
+                  <MapPin className="w-5 h-5 text-primary shrink-0" />
+                  <span className="text-sm">Silicon Valley, CA<br/>Deployments worldwide.</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

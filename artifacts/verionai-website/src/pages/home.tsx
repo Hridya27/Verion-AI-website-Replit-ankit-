@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Shield, Database, LayoutTemplate, Box, Server, Factory, Building2, FlaskConical, Briefcase } from "lucide-react";
+import { ArrowRight, Box, Database, Server, LayoutTemplate, Briefcase, FlaskConical, Factory, Building2, Layers, Cpu, Workflow } from "lucide-react";
 
 export default function Home() {
   const containerVariants = {
@@ -24,179 +24,230 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        {/* Background Image / Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={`${import.meta.env.BASE_URL}images/hero-bg.png`}
-            alt="Futuristic AI Enterprise Background" 
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background" />
-        </div>
-
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-background">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col lg:flex-row items-center gap-12">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center"
+            className="flex-1"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel mb-8 border-primary/30">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary-foreground/80 dark:text-primary tracking-wide">
-                The Next Generation of Enterprise AI
+            <div className="mb-6">
+              <span className="text-primary font-medium tracking-[0.2em] uppercase text-xs">
+                Enterprise AI Consulting
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight mb-8 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1] text-white">
               Designing <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary text-glow">
+              <span className="text-primary">
                 Autonomous Enterprise
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-              VerionAI is an AI consulting firm that designs and deploys enterprise-grade AI-native applications in <span className="text-white font-semibold">days — not months</span>.
+            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+              VerionAI builds and deploys enterprise-grade, secure AI-native applications in days — completely bypassing traditional IT bottlenecks.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link href="/solutions">
-                <Button size="lg" className="w-full sm:w-auto text-lg h-14 px-8 rounded-full bg-primary hover:bg-primary/90 text-background font-semibold shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:shadow-[0_0_30px_rgba(0,255,255,0.5)] transition-all">
+                <Button size="lg" className="w-full sm:w-auto text-sm h-12 px-8 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-medium transition-all">
                   Explore Solutions
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg h-14 px-8 rounded-full border-white/20 hover:bg-white/5 text-white transition-all">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto text-sm h-12 px-8 rounded-md border-white/20 hover:bg-white/5 text-white transition-all">
                   Book a Discovery Call
                 </Button>
               </Link>
             </div>
+            
+            <div className="mt-16 pt-8 border-t border-white/10">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-widest mb-6">
+                Works with
+              </p>
+              <div className="flex flex-wrap items-center gap-8 md:gap-12 opacity-60">
+                <div className="text-lg font-semibold tracking-tight">SAP</div>
+                <div className="text-lg font-semibold tracking-tight">Microsoft</div>
+                <div className="text-lg font-semibold tracking-tight">Oracle</div>
+                <div className="text-lg font-semibold tracking-tight">Salesforce</div>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Trusted Integrations Strip */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="mt-24 pt-10 border-t border-white/10"
+            transition={{ delay: 0.4, duration: 1 }}
+            className="flex-1 hidden lg:block"
           >
-            <p className="text-center text-sm font-medium text-muted-foreground uppercase tracking-widest mb-8">
-              Seamlessly integrates with enterprise systems
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-              <div className="text-xl font-display font-bold">SAP</div>
-              <div className="text-xl font-display font-bold">Microsoft</div>
-              <div className="text-xl font-display font-bold">Oracle</div>
-              <div className="text-xl font-display font-bold">Salesforce</div>
-              <div className="text-xl font-display font-bold">Enterprise DMS</div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The Enterprise Problem */}
-      <section className="py-24 bg-secondary/20 relative">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-              Enterprise systems were never designed for the AI era.
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Traditional IT creates bottlenecks. We bypass them.
-            </p>
-          </div>
-
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
-            {[
-              { title: "Long IT Cycles", desc: "Months or years to deploy simple applications.", icon: <Box className="w-6 h-6 text-red-400" /> },
-              { title: "Expensive Custom Dev", desc: "High costs for basic integrations and features.", icon: <Database className="w-6 h-6 text-orange-400" /> },
-              { title: "Disconnected Systems", desc: "Data silos preventing unified intelligence.", icon: <Server className="w-6 h-6 text-yellow-400" /> },
-              { title: "Poor Adoption", desc: "Clunky UI/UX leading to employee friction.", icon: <LayoutTemplate className="w-6 h-6 text-rose-400" /> }
-            ].map((item, i) => (
-              <motion.div key={i} variants={itemVariants} className="glass-panel p-8 rounded-2xl glow-border">
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
-                  {item.icon}
+            {/* Architectural Diagram representation in pure CSS/SVG */}
+            <div className="w-full max-w-lg mx-auto border border-white/10 rounded-lg p-8 bg-card/50">
+              <div className="space-y-4">
+                <div className="border border-white/10 rounded-md p-4 bg-background relative z-10 flex items-center gap-4">
+                  <div className="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+                    <Cpu className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">Enterprise Intelligence</div>
+                    <div className="text-xs text-muted-foreground">LLM Orchestration & Logic</div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* The VerionAI Approach */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-        
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="lg:w-1/2">
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
-                From Idea to Enterprise Application in <span className="text-primary">Days</span>.
-              </h2>
-              <p className="text-xl text-muted-foreground mb-8">
-                We don't just build software. We build AI-native ecosystems that operate autonomously, learning and adapting to your enterprise needs securely.
-              </p>
-              
-              <ul className="space-y-6">
-                {[
-                  { title: "Rapid AI App Development", desc: "Deploy in days using our composable AI blocks." },
-                  { title: "Seamless Enterprise Integration", desc: "Connects securely to SAP, Oracle, and MS." },
-                  { title: "Sovereign Cloud Data Security", desc: "Your data never leaves your environment." },
-                  { title: "Enterprise-Grade Architecture", desc: "Built to scale across global operations." }
-                ].map((item, i) => (
-                  <li key={i} className="flex gap-4">
-                    <div className="mt-1 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                      <p className="text-muted-foreground">{item.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              
-              <Link href="/how-it-works">
-                <Button variant="link" className="mt-8 text-primary hover:text-primary/80 p-0 h-auto font-semibold text-lg flex items-center gap-2 group">
-                  See our methodology <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-            
-            <div className="lg:w-1/2">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 border border-white/10 aspect-square lg:aspect-[4/3]">
-                <img 
-                  src={`${import.meta.env.BASE_URL}images/abstract-globe.png`}
-                  alt="Global Enterprise Network" 
-                  className="w-full h-full object-cover"
-                />
+                <div className="flex justify-center -my-2"><div className="w-px h-6 bg-white/20"></div></div>
+                <div className="border border-white/10 rounded-md p-4 bg-background relative z-10 flex items-center gap-4">
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-white">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">AI Native Apps</div>
+                    <div className="text-xs text-muted-foreground">User-facing Contextual UI</div>
+                  </div>
+                </div>
+                <div className="flex justify-center -my-2"><div className="w-px h-6 bg-white/20"></div></div>
+                <div className="border border-white/10 rounded-md p-4 bg-background relative z-10 flex items-center gap-4">
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-white">
+                    <Workflow className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">VerionAI Integration Layer</div>
+                    <div className="text-xs text-muted-foreground">Secure Gateways & Sync</div>
+                  </div>
+                </div>
+                <div className="flex justify-center -my-2"><div className="w-px h-6 bg-white/20"></div></div>
+                <div className="border border-white/10 rounded-md p-4 bg-background relative z-10 flex items-center gap-4 opacity-70">
+                  <div className="w-8 h-8 rounded bg-white/5 flex items-center justify-center text-white">
+                    <Database className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-white">Core Enterprise Systems</div>
+                    <div className="text-xs text-muted-foreground">SAP, Oracle, Dynamics</div>
+                  </div>
+                </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Problem Section */}
+      <section className="py-24 border-y border-white/5 bg-card/30">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col lg:flex-row gap-16">
+            <div className="lg:w-1/3">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                Enterprise systems were never designed for the AI era.
+              </h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Traditional IT creates bottlenecks. Complex integrations take years. Data remains siloed. We bypass these limitations with pre-architected, highly contextualized AI layers.
+              </p>
+            </div>
+
+            <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { num: "01", title: "Long IT Cycles", desc: "Months or years to deploy simple applications.", icon: <Box className="w-5 h-5 text-white" /> },
+                { num: "02", title: "Expensive Custom Dev", desc: "High costs for basic integrations and features.", icon: <Database className="w-5 h-5 text-white" /> },
+                { num: "03", title: "Disconnected Systems", desc: "Data silos preventing unified intelligence.", icon: <Server className="w-5 h-5 text-white" /> },
+                { num: "04", title: "Poor Adoption", desc: "Clunky UI/UX leading to employee friction.", icon: <LayoutTemplate className="w-5 h-5 text-white" /> }
+              ].map((item, i) => (
+                <div key={i} className="enterprise-card p-6 flex items-start gap-4">
+                  <div className="shrink-0 text-primary font-mono text-sm mt-1">{item.num}</div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      {item.icon}
+                      <h3 className="text-base font-semibold text-white">{item.title}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Products Showcase */}
-      <section className="py-24 bg-background border-y border-white/5">
+      {/* Approach Section */}
+      <section className="py-32">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
+              From idea to application in days.
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              We don't just build software. We build AI-native ecosystems that operate autonomously.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {[
+              { title: "Rapid AI App Development", desc: "Deploy in days using our composable AI blocks tailored to your logic.", icon: <Box className="w-5 h-5" /> },
+              { title: "Seamless Enterprise Integration", desc: "Connects securely to SAP, Oracle, and MS without disrupting core systems.", icon: <Workflow className="w-5 h-5" /> },
+              { title: "Sovereign Cloud Data Security", desc: "Your data never leaves your environment. Models are deployed locally.", icon: <Server className="w-5 h-5" /> },
+              { title: "Enterprise-Grade Architecture", desc: "Built to scale across global operations with full RBAC and compliance.", icon: <Layers className="w-5 h-5" /> }
+            ].map((item, i) => (
+              <motion.div 
+                key={i} 
+                whileHover={{ y: -4 }}
+                className="enterprise-card p-8 group transition-transform duration-300"
+              >
+                <div className="w-10 h-10 rounded border border-white/10 bg-white/5 flex items-center justify-center mb-6 text-white group-hover:text-primary transition-colors">
+                  {item.icon}
+                </div>
+                <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5-Step Process */}
+      <section className="py-24 bg-card/30 border-y border-white/5">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold mb-4 text-white">Our Methodology</h2>
+            <p className="text-muted-foreground">A proven path to AI transformation.</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-stretch md:items-start gap-8 relative">
+            {/* Connecting line desktop */}
+            <div className="hidden md:block absolute top-6 left-0 right-0 h-px bg-white/10" />
+            
+            {/* Connecting line mobile */}
+            <div className="block md:hidden absolute left-4 top-0 bottom-0 w-px bg-white/10" />
+
+            {[
+              { title: "Discovery", desc: "Analyze enterprise bottlenecks and identify integration points." },
+              { title: "Design", desc: "Map architecture and select composable AI components." },
+              { title: "Development", desc: "Rapidly configure business logic and UI layer." },
+              { title: "Integration", desc: "Connect securely to core systems (ERP, CRM)." },
+              { title: "Deployment", desc: "Launch in sovereign cloud with full team training." }
+            ].map((step, i) => (
+              <div key={i} className="flex-1 relative pl-12 md:pl-0">
+                <div className="absolute left-0 md:left-auto md:mx-auto md:right-auto md:relative w-8 h-8 rounded-full bg-background border border-primary text-primary flex items-center justify-center text-xs font-mono font-bold z-10 mb-6">
+                  0{i+1}
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold text-white mb-2">{step.title}</h4>
+                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="py-32">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
-              <h2 className="text-4xl font-display font-bold mb-4">Enterprise AI Applications</h2>
-              <p className="text-xl text-muted-foreground max-w-2xl">
-                Pre-architected, highly customizable applications ready to deploy into your environment.
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">Enterprise AI Applications</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl">
+                Pre-architected, highly customizable applications ready to deploy.
               </p>
             </div>
             <Link href="/solutions">
-              <Button className="rounded-full bg-white/10 hover:bg-white/20 text-white">
+              <Button variant="outline" className="rounded-md border-white/20 text-white hover:bg-white/5">
                 View All Solutions
               </Button>
             </Link>
@@ -207,21 +258,18 @@ export default function Home() {
               { name: "Verion P Connect", category: "HR & Engagement", desc: "Employee recognition, gamification, and resource allocation workflows." },
               { name: "Verion Trade Scheme", category: "Sales & Dealer Ops", desc: "Target schemes, AI simulation, and automated incentive payouts." },
               { name: "Verion DataWorks", category: "Data Governance", desc: "Automated ETL, master data harmonization, and AI data cleansing." },
-              { name: "Verion Flow", category: "Workflow Automation", desc: "Multi-level approvals, visual builders, and deep Outlook integration." },
+              { name: "Verion Flow", category: "Workflow Automation", desc: "Multi-level approvals, visual builders, and deep integration." },
               { name: "Verion ServiceWorks", category: "ITSM", desc: "AI-driven ticket routing, knowledge base, and SLA management." }
             ].map((prod, i) => (
               <Link key={i} href="/solutions">
                 <motion.div 
-                  whileHover={{ y: -8 }}
-                  className="h-full glass-panel p-8 rounded-2xl border border-white/5 hover:border-primary/50 transition-all cursor-pointer group"
+                  className="h-full enterprise-card p-8 hover:border-primary transition-colors cursor-pointer group flex flex-col"
                 >
-                  <div className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">{prod.category}</div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">{prod.name}</h3>
-                  <p className="text-muted-foreground">{prod.desc}</p>
-                  <div className="mt-8 flex justify-end">
-                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary group-hover:text-background transition-all">
-                      <ArrowRight className="w-5 h-5" />
-                    </div>
+                  <div className="text-primary text-xs font-semibold tracking-wider uppercase mb-4">{prod.category}</div>
+                  <h3 className="text-2xl font-bold text-white mb-3">{prod.name}</h3>
+                  <p className="text-sm text-muted-foreground flex-grow">{prod.desc}</p>
+                  <div className="mt-8 flex items-center text-sm font-medium text-white group-hover:text-primary transition-colors">
+                    Explore <ArrowRight className="w-4 h-4 ml-2" />
                   </div>
                 </motion.div>
               </Link>
@@ -231,26 +279,21 @@ export default function Home() {
       </section>
 
       {/* Industries */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Designed for Your Industry</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our AI applications are contextualized for the unique demands of global sectors.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4">
+      <section className="py-24 bg-card/30 border-t border-white/5">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-12 text-white">Built for Global Sectors</h2>
+          
+          <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
             {[
-              { name: "Professional Services", icon: <Briefcase className="w-5 h-5" /> },
-              { name: "Pharma & Chemicals", icon: <FlaskConical className="w-5 h-5" /> },
-              { name: "Industrial Manufacturing", icon: <Factory className="w-5 h-5" /> },
-              { name: "Consumer & FMCG", icon: <Box className="w-5 h-5" /> },
-              { name: "Engineering & Construction", icon: <Building2 className="w-5 h-5" /> },
+              { name: "Professional Services", icon: <Briefcase className="w-4 h-4" /> },
+              { name: "Pharma & Chemicals", icon: <FlaskConical className="w-4 h-4" /> },
+              { name: "Industrial Manufacturing", icon: <Factory className="w-4 h-4" /> },
+              { name: "Consumer & FMCG", icon: <Box className="w-4 h-4" /> },
+              { name: "Engineering", icon: <Building2 className="w-4 h-4" /> },
             ].map((ind, i) => (
-              <div key={i} className="flex items-center gap-3 px-6 py-4 rounded-full bg-secondary/50 border border-white/10 hover:border-primary/50 transition-colors cursor-default">
-                <span className="text-primary">{ind.icon}</span>
-                <span className="font-semibold text-white">{ind.name}</span>
+              <div key={i} className="flex items-center gap-2 px-5 py-3 rounded border border-white/10 bg-background text-sm font-medium text-white">
+                <span className="text-muted-foreground">{ind.icon}</span>
+                <span>{ind.name}</span>
               </div>
             ))}
           </div>
@@ -258,24 +301,18 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-background z-0" />
-        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-          <h2 className="text-5xl md:text-6xl font-display font-extrabold mb-8">
-            Ready to Build Your First <br/> AI Application?
+      <section className="py-32">
+        <div className="container mx-auto px-4 md:px-6 text-center max-w-3xl">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            Ready to deploy your first AI application?
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Stop waiting for monolithic IT projects. Deploy enterprise-grade, secure AI applications in days with VerionAI.
+          <p className="text-lg text-muted-foreground mb-10">
+            Stop waiting for monolithic IT projects. Deploy enterprise-grade, secure AI applications in days.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact">
-              <Button size="lg" className="w-full sm:w-auto h-14 px-10 rounded-full bg-white text-background hover:bg-white/90 text-lg font-bold">
+              <Button size="lg" className="w-full sm:w-auto h-12 px-8 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 font-medium">
                 Book a Discovery Call
-              </Button>
-            </Link>
-            <Link href="/solutions">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-10 rounded-full border-primary text-primary hover:bg-primary/10 text-lg font-bold">
-                Explore Products
               </Button>
             </Link>
           </div>
