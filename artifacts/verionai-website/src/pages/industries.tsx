@@ -29,7 +29,7 @@ const industries = [
     name: "Consumer & FMCG",
     icon: <Box className="w-5 h-5" />,
     challenges: "High-volume data deduplication, fast-moving promotions, rapid employee turnover.",
-    solution: "DataWorks cleanses retail data instantly. Trade Scheme manages complex promotional payouts. P Connect engages frontline retail teams.",
+    solution: "Verion DataWorks cleanses high-volume retail data instantly. Verion Trade Scheme models and automates complex promotional payouts. Verion P Connect engages and retains frontline retail teams.",
   },
   {
     name: "Engineering & Construction",
