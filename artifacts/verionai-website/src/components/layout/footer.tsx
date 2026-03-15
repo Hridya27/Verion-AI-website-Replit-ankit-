@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { Linkedin } from "lucide-react";
 
 const BLACK = "#111827";
 const PINK = "#D4196A";
@@ -42,11 +43,11 @@ export function Footer() {
             <div className="mb-4">
               <FooterLogo />
             </div>
-            <p className="text-muted-foreground max-w-md text-sm leading-relaxed mb-2">
-              Designing Autonomous Enterprise.
+            <p className="text-muted-foreground max-w-md text-sm leading-relaxed mb-1 font-medium">
+              Architecting the Autonomous Enterprise.
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
-              We rapidly build and deploy AI-native applications that integrate seamlessly with your existing enterprise landscape.
+              We rapidly build and deploy AI-native applications that integrate seamlessly with your existing enterprise landscape — in days, not months.
             </p>
           </div>
           <div>
@@ -55,6 +56,7 @@ export function Footer() {
               <li><Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About Us</Link></li>
               <li><Link href="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How It Works</Link></li>
               <li><Link href="/architecture" className="text-muted-foreground hover:text-foreground transition-colors">Architecture</Link></li>
+              <li><Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link></li>
               <li><Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -70,10 +72,20 @@ export function Footer() {
           </div>
         </div>
         <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">© 2026 VerionAI Pvt Ltd — Designing Autonomous Enterprise</p>
+          <p className="text-muted-foreground text-sm">© 2026 VerionAI Pvt Ltd — Architecting the Autonomous Enterprise.</p>
           <div className="flex items-center gap-6 text-sm">
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy (AI Ethics)</Link>
+            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              LinkedIn
+            </a>
+            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
           </div>
         </div>
       </div>

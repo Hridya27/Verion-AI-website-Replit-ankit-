@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Box, Database, Server, LayoutTemplate, Briefcase, FlaskConical, Factory, Building2, Layers, Cpu, Workflow } from "lucide-react";
+import { ArrowRight, Box, Database, Server, LayoutTemplate, Briefcase, FlaskConical, Factory, Building2, Layers, Cpu, Workflow, ShieldCheck, Lock, Globe, Download } from "lucide-react";
 
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
@@ -186,37 +186,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5-Step Process */}
+      {/* 5-Day Sprint to Value */}
       <section className="py-24 section-alt border-y border-gray-100">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="mb-14">
-            <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-3 block" style={{ color: purple }}>
-              Methodology
-            </span>
-            <h2 className="text-3xl font-bold mb-3 text-gray-950">AI Applications Delivered in 5 Steps</h2>
-            <p className="text-gray-500">A proven path from problem to production.</p>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-16">
+            <div className="lg:w-1/3 lg:sticky lg:top-28 self-start">
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-4 block" style={{ color: purple }}>
+                Methodology
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-950 leading-tight">
+                The 5-Day Sprint to Value
+              </h2>
+              <p className="text-gray-500 leading-relaxed mb-8">
+                From signed agreement to a functional, integrated pilot — in one working week.
+              </p>
+              <Link href="/how-it-works">
+                <Button variant="outline" className="rounded-md border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium">
+                  Full Methodology <ArrowRight className="w-4 h-4 ml-1.5 inline" />
+                </Button>
+              </Link>
+            </div>
 
-          <div className="flex flex-col md:flex-row items-start gap-0 max-w-5xl relative">
-            <div className="hidden md:block absolute top-5 left-0 right-0 h-px bg-gray-200" />
-            {[
-              { title: "Discovery", desc: "Identify high-impact operational bottlenecks." },
-              { title: "Design", desc: "Map architecture and select AI components." },
-              { title: "Development", desc: "Rapidly configure business logic and UI." },
-              { title: "Integration", desc: "Connect securely to ERP and CRM systems." },
-              { title: "Deployment", desc: "Launch in sovereign cloud with full training." },
-            ].map((step, i) => (
-              <div key={i} className="flex-1 flex flex-col items-start md:items-center text-left md:text-center px-4 mb-8 md:mb-0">
-                <div
-                  className="w-10 h-10 rounded-full border-2 flex items-center justify-center text-xs font-mono font-bold z-10 mb-5 bg-white"
-                  style={{ borderColor: pink, color: pink }}
+            <div className="lg:w-2/3 space-y-0">
+              {[
+                {
+                  day: "Day 1",
+                  label: "Friction Discovery",
+                  desc: "Identify the highest-impact operational bottleneck in your enterprise. We run structured discovery sessions with your operations and IT leads to map pain points and quantify the cost of inaction.",
+                },
+                {
+                  day: "Day 2",
+                  label: "Architecture Mapping",
+                  desc: 'Define the "Neural Bridge" to your existing ERP/CRM. Our architects design secure integration contracts, data flow diagrams, and the AI model layer — without touching your core system.',
+                },
+                {
+                  day: "Day 3",
+                  label: "AI-Native Dev",
+                  desc: "Rapid assembly using our proprietary composable framework. We configure business logic, build the UI, and wire in your AI layer — deploying internally for immediate review.",
+                },
+                {
+                  day: "Day 4",
+                  label: "Integration & Security",
+                  desc: "Secure deployment within your sovereign cloud. All connections are validated, RBAC is configured, and a full security audit is completed before any data flows.",
+                },
+                {
+                  day: "Day 5",
+                  label: "The Pilot",
+                  desc: "A functional, integrated application ready for user testing. You walk away with a live demo environment and a clear roadmap to full production rollout.",
+                },
+              ].map((step, i, arr) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className="flex gap-6"
                 >
-                  0{i + 1}
-                </div>
-                <h4 className="text-sm font-semibold text-gray-900 mb-1">{step.title}</h4>
-                <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
+                  <div className="flex flex-col items-center">
+                    <div
+                      className="w-11 h-11 shrink-0 rounded-full border-2 flex items-center justify-center font-mono font-bold text-[10px] z-10 bg-white whitespace-nowrap"
+                      style={{ borderColor: pink, color: pink }}
+                    >
+                      {step.day}
+                    </div>
+                    {i !== arr.length - 1 && (
+                      <div className="w-px flex-1 bg-gray-200 my-2" />
+                    )}
+                  </div>
+                  <div className="pb-10">
+                    <h3 className="text-lg font-bold text-gray-950 mb-2 mt-2.5">{step.label}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -314,16 +358,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Sovereignty Guarantee */}
+      <section className="py-24 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-4 block" style={{ color: purple }}>
+              Security
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-950">
+              The Sovereignty Guarantee
+            </h2>
+            <p className="text-gray-500 leading-relaxed">
+              The assurance that closes the deal for MDs and CTOs. Your data, your cloud, your control — always.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {[
+              {
+                icon: <Lock className="w-5 h-5" />,
+                title: "Zero-Data Leakage",
+                desc: "Your enterprise data is never used to train public LLMs. All model inference runs within your private environment.",
+                badge: "Data Isolation",
+              },
+              {
+                icon: <ShieldCheck className="w-5 h-5" />,
+                title: "VPC Deployment",
+                desc: "Solutions live within your private cloud — Azure, AWS, or On-Prem. We deploy inside your security perimeter, not outside it.",
+                badge: "Private Cloud",
+              },
+              {
+                icon: <Globe className="w-5 h-5" />,
+                title: "Regulatory Compliance",
+                desc: "Built for GDPR, DPDP, and industry-specific mandates. Audit trails, access controls, and compliance reporting included.",
+                badge: "GDPR · DPDP",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="enterprise-card p-8 flex flex-col"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-10 h-10 rounded-md border border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400">
+                    {item.icon}
+                  </div>
+                  <span className="text-xs font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border" style={{ color: purple, borderColor: "hsl(262 83% 55% / 0.25)", background: "hsl(262 83% 55% / 0.06)" }}>
+                    {item.badge}
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-28 bg-white">
+      <section className="py-28 section-alt border-t border-gray-100">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-2xl">
+          <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-4 block" style={{ color: purple }}>
+            The Mandate
+          </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-5 text-gray-950 leading-tight">
-            Ready to build your first AI application?
+            Don't just digitize.{" "}
+            <span style={{ color: pink }}>Automate.</span>
           </h2>
           <p className="text-lg text-gray-500 mb-10 leading-relaxed">
-            Stop waiting for monolithic IT projects. Deploy enterprise-grade, secure AI applications in days.
+            The enterprises that win the next decade are not the ones with the most software — they're the ones whose software thinks.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-3">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-10">
             <Link href="/contact">
               <Button
                 size="lg"
@@ -342,6 +450,17 @@ export default function Home() {
                 Explore Products
               </Button>
             </Link>
+          </div>
+
+          <div className="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl border border-gray-200 bg-white shadow-sm cursor-pointer hover:border-pink-200 transition-colors group">
+            <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0" style={{ backgroundColor: "hsl(262 83% 55% / 0.08)" }}>
+              <Download className="w-4 h-4" style={{ color: purple }} />
+            </div>
+            <div className="text-left">
+              <p className="text-xs text-gray-400 font-medium">Free Download</p>
+              <p className="text-sm font-semibold text-gray-900">The 2026 Roadmap to the Autonomous Enterprise</p>
+            </div>
+            <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-colors ml-2" />
           </div>
         </div>
       </section>
