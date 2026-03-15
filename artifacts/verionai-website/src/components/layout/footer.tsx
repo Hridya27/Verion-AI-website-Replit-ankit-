@@ -1,11 +1,79 @@
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 
-const pink = "#D4196A";
-const black = "#111827";
-const capW = 2;
-const capH = 5.5;
-const stemW = 5.5;
-const stemH = 10;
+const BLACK = "#111827";
+const PINK = "#D4196A";
+
+function AnimatedCapsuleDot({ color, delay = 0 }: { color: string; delay?: number }) {
+  return (
+    <motion.span
+      animate={{ scaleY: [1, 0.28, 1] }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
+        repeatType: "loop",
+      }}
+      style={{
+        width: "2.2px",
+        height: "5.5px",
+        borderRadius: "99px",
+        backgroundColor: color,
+        display: "block",
+        transformOrigin: "center",
+        flexShrink: 0,
+      }}
+    />
+  );
+}
+
+function AnimatedI({
+  color,
+  stemW = 5.5,
+  stemH = 10,
+  containerH = "1.1rem",
+}: {
+  color: string;
+  stemW?: number;
+  stemH?: number;
+  containerH?: string;
+}) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        height: containerH,
+        position: "relative",
+      }}
+    >
+      <span
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1.5px",
+          position: "absolute",
+          top: "1px",
+        }}
+      >
+        <AnimatedCapsuleDot color={color} delay={0} />
+        <AnimatedCapsuleDot color={color} delay={0.75} />
+      </span>
+      <span
+        style={{
+          width: `${stemW}px`,
+          height: `${stemH}px`,
+          borderRadius: "2px",
+          backgroundColor: color,
+          display: "block",
+        }}
+      />
+    </span>
+  );
+}
 
 function FooterLogo() {
   return (
@@ -22,32 +90,11 @@ function FooterLogo() {
           userSelect: "none",
         }}
       >
-        <span style={{ color: black }}>Verion</span>
-        <span style={{ color: pink }}>A</span>
-        <span
-          style={{
-            display: "inline-flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            height: "1.1rem",
-            position: "relative",
-          }}
-        >
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "1.5px",
-              position: "absolute",
-              top: "1px",
-            }}
-          >
-            <span style={{ width: `${capW}px`, height: `${capH}px`, borderRadius: "99px", backgroundColor: pink, display: "block" }} />
-            <span style={{ width: `${capW}px`, height: `${capH}px`, borderRadius: "99px", backgroundColor: pink, display: "block" }} />
-          </span>
-          <span style={{ width: `${stemW}px`, height: `${stemH}px`, borderRadius: "2px", backgroundColor: pink, display: "block" }} />
-        </span>
+        <span style={{ color: BLACK }}>Ver</span>
+        <AnimatedI color={BLACK} />
+        <span style={{ color: BLACK }}>on</span>
+        <span style={{ color: PINK }}>a</span>
+        <AnimatedI color={PINK} />
       </span>
     </Link>
   );
@@ -83,7 +130,16 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-xs text-foreground mb-5 uppercase tracking-widest">Solutions</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion P Connect</Link></li>
+              <li>
+                <a
+                  href="https://a1676b3c-5801-4366-8da5-14d049128b06-00-1xaudefy2swlh.worf.replit.dev/product"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Verion P Connect
+                </a>
+              </li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion Trade Scheme</Link></li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion DataWorks</Link></li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion Flow</Link></li>

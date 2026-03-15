@@ -12,14 +12,90 @@ const navLinks = [
   { name: "About", href: "/about" },
 ];
 
-function VerionLogo() {
-  const pink = "#D4196A";
-  const black = "#111827";
-  const stemW = 7;
-  const stemH = 13;
-  const capW = 2.5;
-  const capH = 7;
-  const gap = 2;
+const BLACK = "#111827";
+const PINK = "#D4196A";
+
+function AnimatedCapsuleDot({ color, delay = 0 }: { color: string; delay?: number }) {
+  return (
+    <motion.span
+      animate={{ scaleY: [1, 0.28, 1] }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
+        repeatType: "loop",
+      }}
+      style={{
+        width: "2.8px",
+        height: "7px",
+        borderRadius: "99px",
+        backgroundColor: color,
+        display: "block",
+        transformOrigin: "center",
+        flexShrink: 0,
+      }}
+    />
+  );
+}
+
+function AnimatedI({
+  color,
+  stemW = 6.5,
+  stemH = 13,
+  topOffset = "1px",
+  containerH = "1.35rem",
+}: {
+  color: string;
+  stemW?: number;
+  stemH?: number;
+  topOffset?: string;
+  containerH?: string;
+}) {
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        height: containerH,
+        position: "relative",
+      }}
+    >
+      {/* Two animated capsule dots — alternate phase */}
+      <span
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "2px",
+          position: "absolute",
+          top: topOffset,
+        }}
+      >
+        <AnimatedCapsuleDot color={color} delay={0} />
+        <AnimatedCapsuleDot color={color} delay={0.75} />
+      </span>
+
+      {/* Stem */}
+      <span
+        style={{
+          width: `${stemW}px`,
+          height: `${stemH}px`,
+          borderRadius: "2px",
+          backgroundColor: color,
+          display: "block",
+        }}
+      />
+    </span>
+  );
+}
+
+function VerionLogo({ size = "lg" }: { size?: "lg" | "sm" }) {
+  const fontSize = size === "lg" ? "1.35rem" : "1.1rem";
+  const stemH = size === "lg" ? 13 : 10;
+  const stemW = size === "lg" ? 6.5 : 5.5;
+  const containerH = size === "lg" ? "1.35rem" : "1.1rem";
 
   return (
     <Link href="/" className="flex items-center">
@@ -27,7 +103,7 @@ function VerionLogo() {
         style={{
           fontFamily: "Inter, sans-serif",
           fontWeight: 800,
-          fontSize: "1.35rem",
+          fontSize,
           letterSpacing: "-0.03em",
           lineHeight: 1,
           display: "inline-flex",
@@ -36,61 +112,20 @@ function VerionLogo() {
           userSelect: "none",
         }}
       >
-        <span style={{ color: black }}>Verion</span>
-        <span style={{ color: pink }}>A</span>
-        {/* Custom "i" — stem + two capsule dots */}
-        <span
-          style={{
-            display: "inline-flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            height: "1.35rem",
-            position: "relative",
-            marginLeft: "0px",
-          }}
-        >
-          {/* Two vertical capsules replacing the dot */}
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: `${gap}px`,
-              position: "absolute",
-              top: "1px",
-            }}
-          >
-            <span
-              style={{
-                width: `${capW}px`,
-                height: `${capH}px`,
-                borderRadius: "99px",
-                backgroundColor: pink,
-                display: "block",
-              }}
-            />
-            <span
-              style={{
-                width: `${capW}px`,
-                height: `${capH}px`,
-                borderRadius: "99px",
-                backgroundColor: pink,
-                display: "block",
-              }}
-            />
-          </span>
-          {/* Stem of i */}
-          <span
-            style={{
-              width: `${stemW}px`,
-              height: `${stemH}px`,
-              borderRadius: "2px",
-              backgroundColor: pink,
-              display: "block",
-              marginBottom: "0px",
-            }}
-          />
-        </span>
+        {/* "Ver" in black */}
+        <span style={{ color: BLACK }}>Ver</span>
+
+        {/* Animated "i" in black (for "Verion") */}
+        <AnimatedI color={BLACK} stemW={stemW} stemH={stemH} containerH={containerH} />
+
+        {/* "on" in black */}
+        <span style={{ color: BLACK }}>on</span>
+
+        {/* "a" in pink (lowercase) */}
+        <span style={{ color: PINK }}>a</span>
+
+        {/* Animated "i" in pink (for "ai") */}
+        <AnimatedI color={PINK} stemW={stemW} stemH={stemH} containerH={containerH} />
       </span>
     </Link>
   );
@@ -121,7 +156,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
-          <VerionLogo />
+          <VerionLogo size="lg" />
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
@@ -130,9 +165,7 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`text-sm font-medium transition-colors hover:text-foreground ${
-                  location === link.href
-                    ? "text-foreground"
-                    : "text-muted-foreground"
+                  location === link.href ? "text-foreground" : "text-muted-foreground"
                 }`}
               >
                 {link.name}
@@ -144,7 +177,7 @@ export function Navbar() {
             <Link href="/contact">
               <Button
                 className="rounded-md px-5 text-sm font-semibold"
-                style={{ backgroundColor: "#D4196A", color: "#fff" }}
+                style={{ backgroundColor: PINK, color: "#fff" }}
               >
                 Book a Discovery Call
               </Button>
@@ -186,7 +219,7 @@ export function Navbar() {
                 <Link href="/contact" className="block w-full">
                   <Button
                     className="w-full rounded-md text-white font-semibold"
-                    style={{ backgroundColor: "#D4196A" }}
+                    style={{ backgroundColor: PINK }}
                   >
                     Book a Discovery Call
                   </Button>
