@@ -33,7 +33,7 @@ export default function Architecture() {
                 label: "AI Native Applications",
                 sub: "User-Facing Contextual UI",
                 icon: <Layers className="w-5 h-5" />,
-                desc: "The user-facing products (P Connect, Trade Scheme, DataWorks, Flow, ServiceWorks). Highly optimized, responsive UIs built for high user adoption. Delivered via web or embedded in Teams/Outlook.",
+                desc: "The user-facing products (Verionai Connect, Trade Scheme, DataWorks, Flow, ServiceWorks). Highly optimized, responsive UIs built for high user adoption. Delivered via web or embedded in Teams/Outlook.",
                 highlight: false,
               },
               {

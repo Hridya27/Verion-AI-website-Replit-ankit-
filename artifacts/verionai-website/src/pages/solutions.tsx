@@ -5,6 +5,19 @@ import { Users, TrendingUp, Database, GitMerge, HeadphonesIcon, ArrowRight, Spar
 
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
+const black = "#111827";
+
+function StyledModuleName({ name, className }: { name: string; className?: string }) {
+  if (name === "Verionai Connect") {
+    return (
+      <span className={className}>
+        <span style={{ color: pink }}>Verionai</span>
+        <span style={{ color: black }}> Connect</span>
+      </span>
+    );
+  }
+  return <span className={className}>{name}</span>;
+}
 
 interface Module {
   id: string;
@@ -20,8 +33,8 @@ interface Module {
 
 const modules: Module[] = [
   {
-    id: "verion-p-connect",
-    name: "Verion P Connect",
+    id: "verionai-connect",
+    name: "Verionai Connect",
     icon: <Users className="w-5 h-5" />,
     focus: "Employee Experience & HR",
     desc: "Transform hire-to-retire workflows with gamified engagement, intelligent resource matching, and unified employee intelligence on top of your existing HRIS.",
@@ -266,13 +279,13 @@ export default function Solutions() {
                         rel="noopener noreferrer"
                         className="group flex items-center gap-2"
                       >
-                        <h2 className="text-2xl font-bold text-gray-950 group-hover:underline decoration-pink-300">
-                          {module.name}
+                        <h2 className="text-2xl font-bold group-hover:underline decoration-pink-300">
+                          <StyledModuleName name={module.name} />
                         </h2>
                         <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-pink transition-colors" />
                       </a>
                     ) : (
-                      <h2 className="text-2xl font-bold text-gray-950">{module.name}</h2>
+                      <h2 className="text-2xl font-bold text-gray-950"><StyledModuleName name={module.name} /></h2>
                     )}
                   </div>
 

@@ -11,7 +11,7 @@ const industries = [
     name: "Professional Services",
     icon: <Briefcase className="w-5 h-5" />,
     challenges: "Resource utilization, tracking complex engagements, unifying global talent data.",
-    solution: "Verion P Connect intelligently maps talent to projects based on AI skill matching, while Verion ServiceWorks handles internal IT smoothly.",
+    solution: "Verionai Connect intelligently maps talent to projects based on AI skill matching, while Verion ServiceWorks handles internal IT smoothly.",
   },
   {
     name: "Pharma & Chemicals",
@@ -29,7 +29,7 @@ const industries = [
     name: "Consumer & FMCG",
     icon: <Box className="w-5 h-5" />,
     challenges: "High-volume data deduplication, fast-moving promotions, rapid employee turnover.",
-    solution: "Verion DataWorks cleanses high-volume retail data instantly. Verion Trade Scheme models and automates complex promotional payouts. Verion P Connect engages and retains frontline retail teams.",
+    solution: "Verion DataWorks cleanses high-volume retail data instantly. Verion Trade Scheme models and automates complex promotional payouts. Verionai Connect engages and retains frontline retail teams.",
   },
   {
     name: "Engineering & Construction",

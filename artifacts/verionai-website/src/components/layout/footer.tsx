@@ -63,7 +63,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a href="https://a1676b3c-5801-4366-8da5-14d049128b06-00-1xaudefy2swlh.worf.replit.dev/product" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Verion P Connect
+                  Verionai Connect
                 </a>
               </li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion Trade Scheme</Link></li>
