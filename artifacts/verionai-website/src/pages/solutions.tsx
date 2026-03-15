@@ -6,7 +6,19 @@ import { Users, TrendingUp, Database, GitMerge, HeadphonesIcon, ArrowRight, Spar
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
 
-const modules = [
+interface Module {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  focus: string;
+  desc: string;
+  keyFeatureName: string;
+  keyFeatureDesc: string;
+  features: string[];
+  externalLink?: string;
+}
+
+const modules: Module[] = [
   {
     id: "verion-p-connect",
     name: "Verion P Connect",
@@ -22,7 +34,6 @@ const modules = [
       "Hire-to-retire process automation",
     ],
     externalLink: "https://a1676b3c-5801-4366-8da5-14d049128b06-00-1xaudefy2swlh.worf.replit.dev/product",
-    index: 0,
   },
   {
     id: "verion-trade-scheme",
@@ -38,7 +49,6 @@ const modules = [
       "Automated global reimbursements",
       "ERP sales data integration",
     ],
-    index: 1,
   },
   {
     id: "verion-dataworks",
@@ -54,7 +64,6 @@ const modules = [
       "Custom MDM rules engine",
       "Automated ETL pipelines",
     ],
-    index: 2,
   },
   {
     id: "verion-flow",
@@ -70,7 +79,6 @@ const modules = [
       "Outlook & Teams actionable cards",
       "Full audit trail & compliance logs",
     ],
-    index: 3,
   },
   {
     id: "verion-serviceworks",
@@ -86,9 +94,98 @@ const modules = [
       "SLA tracking & real-time analytics",
       "Dynamic knowledge base generation",
     ],
-    index: 4,
   },
 ];
+
+function PreviewCard({ module }: { module: Module }) {
+  const card = (
+    <div
+      className={`rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white transition-all duration-200 ${
+        module.externalLink ? "group-hover:shadow-md group-hover:border-pink-200 cursor-pointer" : ""
+      }`}
+    >
+      <div className="h-10 border-b border-gray-100 bg-gray-50 flex items-center px-4 gap-3">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
+          <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
+          <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
+        </div>
+        <div className="flex-1 h-4 bg-gray-100 rounded max-w-[160px]" />
+        <div
+          className="h-5 px-3 rounded text-[10px] font-medium flex items-center text-white"
+          style={{ backgroundColor: pink }}
+        >
+          {module.keyFeatureName}
+        </div>
+      </div>
+
+      <div className="p-5 bg-white">
+        <div className="grid grid-cols-3 gap-3 mb-5">
+          {[["Active", "247"], ["Resolved", "1.2k"], ["Pending", "18"]].map(([label, val], i) => (
+            <div key={i} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
+              <div className="text-[10px] text-gray-400 mb-1">{label}</div>
+              <div className="text-lg font-bold text-gray-900">{val}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex gap-4">
+          <div className="flex-1 flex flex-col gap-2.5">
+            {[80, 55, 90, 65].map((w, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-full bg-gray-100 shrink-0" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="h-2 rounded bg-gray-100" style={{ width: `${w}%` }} />
+                  <div className="h-2 rounded bg-gray-50" style={{ width: `${w - 20}%` }} />
+                </div>
+                <div
+                  className="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                  style={{
+                    backgroundColor: i === 0 ? pink : i === 2 ? purple : "#E5E7EB",
+                    color: i === 0 || i === 2 ? "white" : "#6B7280",
+                  }}
+                >
+                  {i === 0 ? "AI" : i === 2 ? "Live" : "—"}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="w-28 flex flex-col gap-2.5 shrink-0">
+            <div className="flex-1 rounded-lg border border-gray-100 bg-gray-50 p-2.5 flex flex-col justify-between">
+              <div className="text-[10px] text-gray-400">AI Score</div>
+              <div className="text-2xl font-bold" style={{ color: pink }}>94%</div>
+              <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                <div className="h-full rounded-full" style={{ width: "94%", backgroundColor: pink }} />
+              </div>
+            </div>
+            <div className="h-14 rounded-lg border border-gray-100 bg-gray-50 p-2.5 flex items-center justify-center">
+              <div className="text-[10px] text-gray-400 text-center leading-relaxed">
+                Auto-resolved<br />
+                <span className="font-semibold text-gray-700">48 items</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  if (module.externalLink) {
+    return (
+      <a
+        href={module.externalLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block group"
+      >
+        {card}
+      </a>
+    );
+  }
+
+  return <>{card}</>;
+}
 
 export default function Solutions() {
   return (
@@ -109,7 +206,7 @@ export default function Solutions() {
             </p>
           </div>
 
-          {/* Module index nav */}
+          {/* Module nav pills */}
           <div className="flex flex-wrap gap-3 mt-10">
             {modules.map((m) => (
               <a
@@ -118,7 +215,7 @@ export default function Solutions() {
                 target={m.externalLink ? "_blank" : undefined}
                 rel={m.externalLink ? "noopener noreferrer" : undefined}
               >
-                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 hover:text-pink transition-colors cursor-pointer bg-white">
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 transition-colors cursor-pointer bg-white">
                   <span className="text-gray-300 w-4 h-4 flex items-center justify-center">{m.icon}</span>
                   {m.name}
                 </span>
@@ -145,7 +242,6 @@ export default function Solutions() {
 
                 {/* Left: Content */}
                 <div className="lg:w-1/2">
-                  {/* Module number + focus */}
                   <div className="flex items-center gap-3 mb-6">
                     <span className="text-xs font-mono text-gray-300 font-semibold">
                       {String(index + 1).padStart(2, "0")}
@@ -156,7 +252,6 @@ export default function Solutions() {
                     </span>
                   </div>
 
-                  {/* Icon + Name */}
                   <div className="flex items-center gap-3 mb-4">
                     <div
                       className="w-10 h-10 rounded-md border flex items-center justify-center shrink-0"
@@ -165,8 +260,15 @@ export default function Solutions() {
                       {module.icon}
                     </div>
                     {module.externalLink ? (
-                      <a href={module.externalLink} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-2">
-                        <h2 className="text-2xl font-bold text-gray-950 group-hover:underline decoration-pink-400">{module.name}</h2>
+                      <a
+                        href={module.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-2"
+                      >
+                        <h2 className="text-2xl font-bold text-gray-950 group-hover:underline decoration-pink-300">
+                          {module.name}
+                        </h2>
                         <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-pink transition-colors" />
                       </a>
                     ) : (
@@ -176,7 +278,6 @@ export default function Solutions() {
 
                   <p className="text-gray-500 leading-relaxed mb-8 text-[0.95rem]">{module.desc}</p>
 
-                  {/* Key Feature Callout */}
                   <div
                     className="rounded-xl p-5 mb-8 border"
                     style={{ borderColor: `${pink}25`, backgroundColor: `${pink}06` }}
@@ -190,14 +291,10 @@ export default function Solutions() {
                     <p className="text-sm text-gray-700 leading-relaxed">{module.keyFeatureDesc}</p>
                   </div>
 
-                  {/* Features list */}
                   <ul className="space-y-2 mb-8">
                     {module.features.map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ backgroundColor: pink }}
-                        />
+                        <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: pink }} />
                         <span className="text-sm text-gray-600">{f}</span>
                       </li>
                     ))}
@@ -224,91 +321,20 @@ export default function Solutions() {
                   )}
                 </div>
 
-                {/* Right: Abstract UI preview */}
+                {/* Right: Preview */}
                 <div className="lg:w-1/2 w-full">
                   {module.externalLink && (
                     <div className="mb-3 flex items-center gap-2">
-                      <span className="text-xs text-gray-400">Live product →</span>
-                      <a
-                        href={module.externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-medium underline decoration-pink-300"
-                        style={{ color: pink }}
-                      >
+                      <span className="text-xs text-gray-400">Live product</span>
+                      <span className="text-xs text-gray-300">→</span>
+                      <span className="text-xs font-medium" style={{ color: pink }}>
                         {module.externalLink.replace("https://", "")}
-                      </a>
+                      </span>
                     </div>
                   )}
-                  <a
-                    href={module.externalLink ?? undefined}
-                    target={module.externalLink ? "_blank" : undefined}
-                    rel={module.externalLink ? "noopener noreferrer" : undefined}
-                    className={module.externalLink ? "block group" : "block"}
-                  >
-                  <div className={`rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white transition-shadow ${module.externalLink ? "group-hover:shadow-md group-hover:border-pink-200" : ""}`}>
-                    {/* App chrome */}
-                    <div className="h-10 border-b border-gray-100 bg-gray-50 flex items-center px-4 gap-3">
-                      <div className="flex gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-gray-200" />
-                      </div>
-                      <div className="flex-1 h-4 bg-gray-100 rounded max-w-[160px]" />
-                      <div className="h-5 px-3 rounded text-[10px] font-medium flex items-center text-white" style={{ backgroundColor: pink }}>
-                        {module.keyFeatureName}
-                      </div>
-                    </div>
-
-                    {/* Simulated UI body */}
-                    <div className="p-5 bg-white">
-                      {/* Stats row */}
-                      <div className="grid grid-cols-3 gap-3 mb-5">
-                        {[["Active", "247"], ["Resolved", "1.2k"], ["Pending", "18"]].map(([label, val], i) => (
-                          <div key={i} className="rounded-lg border border-gray-100 bg-gray-50 p-3">
-                            <div className="text-[10px] text-gray-400 mb-1">{label}</div>
-                            <div className="text-lg font-bold text-gray-900">{val}</div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Main content area */}
-                      <div className="flex gap-4">
-                        <div className="flex-1 flex flex-col gap-2.5">
-                          {[80, 55, 90, 65].map((w, i) => (
-                            <div key={i} className="flex items-center gap-3">
-                              <div className="w-7 h-7 rounded-full bg-gray-100 shrink-0" />
-                              <div className="flex-1 space-y-1.5">
-                                <div className="h-2 rounded bg-gray-100" style={{ width: `${w}%` }} />
-                                <div className="h-2 rounded bg-gray-50" style={{ width: `${w - 20}%` }} />
-                              </div>
-                              <div
-                                className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white shrink-0"
-                                style={{ backgroundColor: i === 0 ? pink : i === 2 ? `${purple}` : "#E5E7EB", color: i < 3 && i !== 1 ? "white" : "#6B7280" }}
-                              >
-                                {i === 0 ? "AI" : i === 2 ? "Live" : "—"}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="w-28 flex flex-col gap-2.5 shrink-0">
-                          <div className="flex-1 rounded-lg border border-gray-100 bg-gray-50 p-2.5 flex flex-col justify-between">
-                            <div className="text-[10px] text-gray-400">AI Score</div>
-                            <div className="text-2xl font-bold" style={{ color: pink }}>94%</div>
-                            <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
-                              <div className="h-full rounded-full" style={{ width: "94%", backgroundColor: pink }} />
-                            </div>
-                          </div>
-                          <div className="h-14 rounded-lg border border-gray-100 bg-gray-50 p-2.5 flex items-center justify-center">
-                            <div className="text-[10px] text-gray-400 text-center leading-relaxed">Auto-resolved<br /><span className="font-semibold text-gray-700">48 items</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </a>
+                  <PreviewCard module={module} />
                 </div>
+
               </div>
             </div>
           </motion.section>
