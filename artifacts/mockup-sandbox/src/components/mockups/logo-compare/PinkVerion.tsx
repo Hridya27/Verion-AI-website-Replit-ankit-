@@ -14,7 +14,7 @@ function BreathingBars() {
       <motion.span
         animate={{ scaleY: [1, 0.35, 1] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        style={{ width: "3px", height: "16px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
+        style={{ width: "3px", height: "16px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
       />
     </span>
   );
