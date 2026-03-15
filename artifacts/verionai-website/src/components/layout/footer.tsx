@@ -40,14 +40,14 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="lg:col-span-2">
-            <div className="mb-4">
+            <div className="mb-3">
               <FooterLogo />
             </div>
-            <p className="text-muted-foreground max-w-md text-sm leading-relaxed mb-1 font-medium">
-              Architecting the Autonomous Enterprise.
+            <p className="text-sm font-semibold text-gray-900 mb-3 max-w-xs leading-snug">
+              The process of turning enterprise data into actionable truth.
             </p>
-            <p className="text-sm leading-relaxed text-muted-foreground max-w-sm">
-              We rapidly build and deploy AI-native applications that integrate seamlessly with your existing enterprise landscape — in days, not months.
+            <p className="text-muted-foreground max-w-md text-xs leading-relaxed mb-1 uppercase tracking-widest font-medium">
+              Architecting the Autonomous Enterprise.
             </p>
           </div>
           <div>

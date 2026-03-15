@@ -251,11 +251,11 @@ export default function ConnectPage() {
               Enterprise Talent & Resource Intelligence Platform
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
-              Grow Your People.{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                Connect | Recognize | Succeed
-              </span>
+              Grow Your People.
             </h1>
+            <p className="mt-3 text-lg sm:text-xl font-medium tracking-wide bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Connect | Recognize | Succeed
+            </p>
             <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
               The all-in-one platform for SAP consulting firms — talent management, resource allocation, 
               recognition, and AI-driven insights in one unified system.
