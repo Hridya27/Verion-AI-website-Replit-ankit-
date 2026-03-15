@@ -21,7 +21,7 @@ function BreathingBars() {
       <motion.span
         animate={{ scaleY: [0.35, 1, 0.35] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-        style={{ width: "2.5px", height: "14px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
+        style={{ width: "2.5px", height: "14px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
       />
       <motion.span
         animate={{ scaleY: [1, 0.35, 1] }}
@@ -36,9 +36,9 @@ function VerionLogo() {
   return (
     <Link href="/" className="flex items-center">
       <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 800, fontSize: "22px", letterSpacing: "-0.03em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "5px", userSelect: "none" }}>
-        <span style={{ color: BLACK }}>Verion</span>
+        <span style={{ color: PINK }}>Verion</span>
         <BreathingBars />
-        <span style={{ color: PINK }}>ai</span>
+        <span style={{ color: BLACK }}>ai</span>
       </span>
     </Link>
   );
