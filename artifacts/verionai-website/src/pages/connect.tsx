@@ -250,6 +250,13 @@ export default function ConnectPage() {
               <Zap className="h-3.5 w-3.5" />
               Enterprise Talent & Resource Intelligence Platform
             </div>
+            <div className="mb-4">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight" style={{ letterSpacing: "-0.02em" }}>
+                <span style={{ color: PINK }}>Verion</span>
+                <span className="text-white">ai</span>
+                <span className="text-white/60 font-semibold"> Connect</span>
+              </span>
+            </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
               Grow Your People.
             </h1>
