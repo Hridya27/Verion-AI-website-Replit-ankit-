@@ -46,15 +46,15 @@ const CORE_FEATURES = [
   {
     icon: Users,
     title: "Talent Management",
-    description: "Comprehensive employee profiles with skills, certifications, work history, and SAP module expertise. Discover the right talent instantly with advanced multi-filter search.",
-    highlights: ["Employee Skill Profiles", "SAP Module Expertise Tracking", "Multi-Filter Talent Discovery", "Profile Cards & Data Views"],
+    description: "Comprehensive employee profiles with skills, certifications, work history, and practice area expertise. Discover the right talent instantly with advanced multi-filter search across any service line.",
+    highlights: ["Employee Skill Profiles", "Practice Area Expertise Tracking", "Multi-Filter Talent Discovery", "Profile Cards & Data Views"],
     color: "blue",
   },
   {
     icon: Brain,
     title: "AI-Powered Intelligence",
-    description: "Built-in GROW AI assistant for system queries, report generation, and smart recommendations. AI-driven CV parsing, candidate insights, and manager recommendation engine.",
-    highlights: ["GROW AI Chat Assistant", "AI CV Parser & Resume Analysis", "Smart Manager Recommendations", "Voice Input via Whisper"],
+    description: "Built-in AI assistant for system queries, report generation, and smart recommendations. AI-driven CV parsing, candidate insights, and manager recommendation engine.",
+    highlights: ["AI Chat Assistant", "AI CV Parser & Resume Analysis", "Smart Manager Recommendations", "Voice Input via Whisper"],
     color: "purple",
   },
   {
@@ -144,8 +144,8 @@ const PLATFORM_FEATURES = [
 const ENTERPRISE_PILLARS = [
   {
     icon: Globe,
-    title: "SAP-Native",
-    desc: "Deep SAP module and skill taxonomy support — built specifically for SAP consulting practices.",
+    title: "Practice-Ready",
+    desc: "Configurable skill taxonomies and practice area structures that adapt to any professional services firm — consulting, advisory, or managed services.",
   },
   {
     icon: Shield,
@@ -257,8 +257,8 @@ export default function ConnectPage() {
               Connect | Recognize | Succeed
             </p>
             <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              The all-in-one platform for SAP consulting firms — talent management, resource allocation, 
-              recognition, and AI-driven insights in one unified system.
+              The all-in-one platform for professional services firms — talent management, resource allocation,
+              recognition, and AI-driven insights across every service line and practice area.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -424,7 +424,7 @@ export default function ConnectPage() {
               Built for Enterprise. Designed for People.
             </h2>
             <p className="mt-4 text-lg text-slate-300">
-              Four pillars that make Verionai Connect the platform of choice for SAP consulting organisations.
+              Four pillars that make Verionai Connect the platform of choice for professional services organisations.
             </p>
           </div>
 
@@ -458,8 +458,8 @@ export default function ConnectPage() {
                 Ready to Transform Your Talent Operations?
               </h2>
               <p className="text-blue-100 text-base sm:text-lg max-w-xl mx-auto mb-8">
-                Join leading SAP consulting firms using Verionai Connect to manage people, resources, 
-                and performance — all in one place.
+                Join leading professional services firms using Verionai Connect to manage people, resources,
+                and performance — across every practice and service line.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
