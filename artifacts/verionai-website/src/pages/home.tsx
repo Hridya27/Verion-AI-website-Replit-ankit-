@@ -166,7 +166,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {[
               { title: "Rapid AI App Development", desc: "Deploy in days using our composable AI blocks tailored to your business logic.", icon: <Box className="w-4 h-4" /> },
-              { title: "Seamless Enterprise Integration", desc: "Connects securely to SAP, Oracle, and MS without disrupting core systems.", icon: <Workflow className="w-4 h-4" /> },
+              { title: "Seamless Enterprise Integration", desc: "Connects securely to any enterprise platform — SAP, Oracle, Microsoft, Salesforce — without disrupting core systems.", icon: <Workflow className="w-4 h-4" /> },
               { title: "Sovereign Cloud Data Security", desc: "Your data never leaves your environment. Models are deployed locally in your tenant.", icon: <Server className="w-4 h-4" /> },
               { title: "Enterprise-Grade Architecture", desc: "Built to scale across global operations with full RBAC and compliance.", icon: <Layers className="w-4 h-4" /> },
             ].map((item, i) => (
