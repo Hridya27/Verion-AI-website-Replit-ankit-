@@ -32,11 +32,17 @@ export default function Contact() {
     defaultValues: { name: "", company: "", email: "", phone: "", message: "", intent: "discovery" },
   });
 
-  const onSubmit = async (_data: ContactFormValues) => {
+  const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const subject = encodeURIComponent(
+      `[VerionAI] ${data.intent === "demo" ? "Demo Request" : "Discovery Call"} — ${data.company}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone || "N/A"}\n\nMessage:\n${data.message}`
+    );
+    window.location.href = `mailto:info@verionai.in?subject=${subject}&body=${body}`;
     setIsSubmitting(false);
-    toast({ title: "Message Received", description: "Our enterprise team will contact you shortly." });
+    toast({ title: "Opening your email client…", description: "Your details are pre-filled. Hit Send to reach our team." });
     form.reset();
   };
 
@@ -166,7 +172,8 @@ export default function Contact() {
               {
                 icon: <Mail className="w-4 h-4" style={{ color: pink }} />,
                 label: "Email",
-                value: "enterprise@verionai.com",
+                value: "info@verionai.in",
+                href: "mailto:info@verionai.in",
               },
               {
                 icon: <MapPin className="w-4 h-4" style={{ color: purple }} />,
@@ -184,7 +191,13 @@ export default function Contact() {
                   {item.icon}
                   <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">{item.label}</span>
                 </div>
-                <p className="text-sm text-gray-700">{item.value}</p>
+                {"href" in item ? (
+                  <a href={(item as { href: string }).href} className="text-sm font-medium hover:underline" style={{ color: pink }}>
+                    {item.value}
+                  </a>
+                ) : (
+                  <p className="text-sm text-gray-700">{item.value}</p>
+                )}
               </div>
             ))}
           </div>

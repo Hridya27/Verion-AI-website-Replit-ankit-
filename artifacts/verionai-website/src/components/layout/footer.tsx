@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { Linkedin } from "lucide-react";
 
 const BLACK = "#111827";
 const PINK = "#D4196A";
@@ -77,13 +76,10 @@ export function Footer() {
             <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy (AI Ethics)</Link>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link>
             <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5"
+              href="mailto:info@verionai.in"
+              className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Linkedin className="w-3.5 h-3.5" />
-              LinkedIn
+              info@verionai.in
             </a>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
           </div>
