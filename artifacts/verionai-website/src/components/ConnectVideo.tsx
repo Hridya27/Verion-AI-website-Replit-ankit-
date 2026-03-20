@@ -5,61 +5,10 @@ import { Play, Pause, RotateCcw, Volume2, VolumeX, Star, TrendingUp, Award, Chec
 const PINK = "#D4196A";
 const TOTAL_SCENES = 7;
 
+// Minimum scene display time (ms) — scene won't advance until BOTH audio ends AND min time passes
 const MIN_DURATIONS = [3200, 5000, 5500, 5500, 5500, 5000, 3200];
-const SPEECH_SAFETY_MS = 9000;
-
-// Each scene is an array of short phrases — spoken one by one with natural breath gaps.
-// "Verrion AI" is spelled phonetically so TTS pronounces it correctly.
-const VOICEOVER: string[][] = [
-  [
-    "Introducing Verrion AI Connect.",
-    "The enterprise talent and resource intelligence platform.",
-  ],
-  [
-    "Right now, your talent data is scattered across disconnected systems.",
-    "People are mismatched to projects.",
-    "And growth potential stays completely invisible.",
-  ],
-  [
-    "Verrion AI Connect brings everything together.",
-    "Every employee profile. Every skill. Every opportunity.",
-    "Intelligently matched — on one platform.",
-  ],
-  [
-    "The Recognition Engine makes performance visible.",
-    "Gamified points, achievement badges, and live leaderboards.",
-    "Driving genuine engagement, every single day.",
-  ],
-  [
-    "The GROW Collaboration Feed keeps your team connected.",
-    "Spotlight colleagues. Celebrate wins. Appreciate great work.",
-    "Recognition that's visible across your entire organization.",
-  ],
-  [
-    "Three-sixty workforce analytics — from hire to retire.",
-    "Every resource decision. Every hiring call.",
-    "Powered by AI.",
-  ],
-  [
-    "Grow your people.",
-    "Verrion AI Connect.",
-  ],
-];
-
-// ── Helpers ──────────────────────────────────────────────────────
-
-function getPreferredVoice(): SpeechSynthesisVoice | null {
-  if (typeof window === "undefined" || !window.speechSynthesis) return null;
-  const voices = window.speechSynthesis.getVoices();
-  return (
-    voices.find((v) => v.lang === "en-US" && v.name.toLowerCase().includes("google")) ||
-    voices.find((v) => v.lang === "en-GB" && v.name.toLowerCase().includes("google")) ||
-    voices.find((v) => v.lang === "en-US" && !v.localService) ||
-    voices.find((v) => v.lang.startsWith("en-US")) ||
-    voices.find((v) => v.lang.startsWith("en")) ||
-    null
-  );
-}
+// Max safety timeout in case audio fails to fire onended
+const AUDIO_SAFETY_MS = 20000;
 
 function CountUp({ to, duration = 1800 }: { to: number; duration?: number }) {
   const [val, setVal] = useState(0);
@@ -76,7 +25,7 @@ function CountUp({ to, duration = 1800 }: { to: number; duration?: number }) {
   return <>{val.toLocaleString()}</>;
 }
 
-// ── Web Audio Music Engine — Corporate Pulse ──────────────────────
+// ── Ambient background music (gentle sine pad loop) ───────────────
 // 85 BPM · soft sub-kick · brush hi-hats · warm sine pad chords (Am key)
 
 class MusicEngine {
@@ -654,11 +603,13 @@ export default function ConnectVideo() {
   const [scene, setScene] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
 
+  // Refs
+  const voiceAudioRef = useRef<HTMLAudioElement | null>(null);
   const musicRef = useRef<MusicEngine | null>(null);
-  const speechDoneRef = useRef(false);
+  const audioDoneRef = useRef(false);
   const minDoneRef = useRef(false);
   const minTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const maxTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const safetyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isMutedRef = useRef(false);
   const statusRef = useRef<"idle" | "playing" | "paused">("idle");
   const sceneRef = useRef(0);
@@ -669,7 +620,15 @@ export default function ConnectVideo() {
 
   const clearTimers = () => {
     if (minTimerRef.current) { clearTimeout(minTimerRef.current); minTimerRef.current = null; }
-    if (maxTimerRef.current) { clearTimeout(maxTimerRef.current); maxTimerRef.current = null; }
+    if (safetyTimerRef.current) { clearTimeout(safetyTimerRef.current); safetyTimerRef.current = null; }
+  };
+
+  const stopVoiceAudio = () => {
+    if (voiceAudioRef.current) {
+      voiceAudioRef.current.pause();
+      voiceAudioRef.current.src = "";
+      voiceAudioRef.current = null;
+    }
   };
 
   const advance = () => {
@@ -677,50 +636,36 @@ export default function ConnectVideo() {
   };
 
   const tryAdvance = () => {
-    if (speechDoneRef.current && minDoneRef.current) advance();
+    if (audioDoneRef.current && minDoneRef.current) advance();
   };
 
-  const speakScene = (idx: number) => {
-    if (typeof window === "undefined" || !window.speechSynthesis || isMutedRef.current) {
-      speechDoneRef.current = true;
+  const playVoiceForScene = (idx: number) => {
+    stopVoiceAudio();
+    if (isMutedRef.current) {
+      audioDoneRef.current = true;
       return;
     }
-    window.speechSynthesis.cancel();
-
-    const phrases = VOICEOVER[idx];
-    const voice = getPreferredVoice();
-    let phraseIdx = 0;
-
-    function speakNext() {
+    const base = (import.meta.env.BASE_URL as string).replace(/\/$/, "");
+    const audio = new Audio(`${base}/audio/scene-${idx}.mp3`);
+    audio.volume = 1.0;
+    voiceAudioRef.current = audio;
+    audio.onended = () => {
       if (statusRef.current !== "playing") return;
-      if (phraseIdx >= phrases.length) {
-        speechDoneRef.current = true;
-        tryAdvance();
-        return;
-      }
-      const utter = new SpeechSynthesisUtterance(phrases[phraseIdx]);
-      utter.rate = 0.84;
-      utter.pitch = 1.0;
-      utter.volume = 1.0;
-      if (voice) utter.voice = voice;
-      utter.onend = () => {
-        if (statusRef.current !== "playing") return;
-        phraseIdx++;
-        // Natural breath gap between phrases (180 ms)
-        setTimeout(speakNext, 180);
-      };
-      utter.onerror = () => {
-        phraseIdx++;
-        setTimeout(speakNext, 100);
-      };
-      window.speechSynthesis.speak(utter);
-    }
-
-    speakNext();
+      audioDoneRef.current = true;
+      tryAdvance();
+    };
+    audio.onerror = () => {
+      audioDoneRef.current = true;
+      tryAdvance();
+    };
+    audio.play().catch(() => {
+      audioDoneRef.current = true;
+      tryAdvance();
+    });
   };
 
   const startScene = (idx: number) => {
-    speechDoneRef.current = false;
+    audioDoneRef.current = false;
     minDoneRef.current = false;
     clearTimers();
 
@@ -729,13 +674,13 @@ export default function ConnectVideo() {
       tryAdvance();
     }, MIN_DURATIONS[idx]);
 
-    maxTimerRef.current = setTimeout(() => {
-      speechDoneRef.current = true;
+    safetyTimerRef.current = setTimeout(() => {
+      audioDoneRef.current = true;
       minDoneRef.current = true;
       advance();
-    }, MIN_DURATIONS[idx] + SPEECH_SAFETY_MS);
+    }, MIN_DURATIONS[idx] + AUDIO_SAFETY_MS);
 
-    speakScene(idx);
+    playVoiceForScene(idx);
   };
 
   useEffect(() => {
@@ -752,24 +697,25 @@ export default function ConnectVideo() {
       musicRef.current.start();
     } else {
       musicRef.current.resume();
-      window.speechSynthesis?.resume();
+      // Resume paused voice audio
+      voiceAudioRef.current?.play().catch(() => {});
     }
     setStatus("playing");
   };
 
   const handlePause = () => {
     clearTimers();
-    window.speechSynthesis?.cancel();
+    voiceAudioRef.current?.pause();
     musicRef.current?.pause();
     setStatus("paused");
   };
 
   const handleReplay = () => {
     clearTimers();
-    window.speechSynthesis?.cancel();
+    stopVoiceAudio();
     if (!musicRef.current) musicRef.current = new MusicEngine();
     musicRef.current.start();
-    speechDoneRef.current = false;
+    audioDoneRef.current = false;
     minDoneRef.current = false;
     if (scene === 0) {
       setStatus("idle");
@@ -785,19 +731,19 @@ export default function ConnectVideo() {
     isMutedRef.current = next;
     setIsMuted(next);
     if (next) {
-      window.speechSynthesis?.cancel();
+      voiceAudioRef.current?.pause();
       musicRef.current?.setVolume(0);
-      speechDoneRef.current = true;
+      audioDoneRef.current = true;
     } else {
-      musicRef.current?.setVolume(0.26);
-      if (status === "playing") speakScene(sceneRef.current);
+      musicRef.current?.setVolume(0.22);
+      if (status === "playing") playVoiceForScene(sceneRef.current);
     }
   };
 
   useEffect(() => {
     return () => {
       clearTimers();
-      window.speechSynthesis?.cancel();
+      stopVoiceAudio();
       musicRef.current?.destroy();
     };
   }, []);
