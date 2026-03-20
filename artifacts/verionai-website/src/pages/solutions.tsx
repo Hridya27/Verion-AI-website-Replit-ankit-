@@ -28,7 +28,7 @@ interface Module {
   keyFeatureName: string;
   keyFeatureDesc: string;
   features: string[];
-  externalLink?: string;
+  productPage?: string;
 }
 
 const modules: Module[] = [
@@ -46,7 +46,7 @@ const modules: Module[] = [
       "Points economy & incentive engine",
       "Hire-to-retire process automation",
     ],
-    externalLink: "/connect",
+    productPage: "/connect",
   },
   {
     id: "verion-trade-scheme",
@@ -114,7 +114,7 @@ function PreviewCard({ module }: { module: Module }) {
   const card = (
     <div
       className={`rounded-xl border border-gray-200 overflow-hidden shadow-sm bg-white transition-all duration-200 ${
-        module.externalLink ? "group-hover:shadow-md group-hover:border-pink-200 cursor-pointer" : ""
+        module.productPage ? "group-hover:shadow-md group-hover:border-pink-200 cursor-pointer" : ""
       }`}
     >
       <div className="h-10 border-b border-gray-100 bg-gray-50 flex items-center px-4 gap-3">
@@ -184,9 +184,9 @@ function PreviewCard({ module }: { module: Module }) {
     </div>
   );
 
-  if (module.externalLink) {
+  if (module.productPage) {
     return (
-      <Link href={module.externalLink} className="block group">
+      <Link href={module.productPage} className="block group">
         {card}
       </Link>
     );
@@ -217,17 +217,21 @@ export default function Solutions() {
           {/* Module nav pills */}
           <div className="flex flex-wrap gap-3 mt-10">
             {modules.map((m) => (
-              <a
-                key={m.id}
-                href={m.externalLink ?? `#${m.id}`}
-                target={m.externalLink ? "_blank" : undefined}
-                rel={m.externalLink ? "noopener noreferrer" : undefined}
-              >
-                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 transition-colors cursor-pointer bg-white">
-                  <span className="text-gray-300 w-4 h-4 flex items-center justify-center">{m.icon}</span>
-                  {m.name}
-                </span>
-              </a>
+              m.productPage ? (
+                <Link key={m.id} href={m.productPage}>
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 transition-colors cursor-pointer bg-white">
+                    <span className="text-gray-300 w-4 h-4 flex items-center justify-center">{m.icon}</span>
+                    {m.name}
+                  </span>
+                </Link>
+              ) : (
+                <a key={m.id} href={`#${m.id}`}>
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-pink-300 transition-colors cursor-pointer bg-white">
+                    <span className="text-gray-300 w-4 h-4 flex items-center justify-center">{m.icon}</span>
+                    {m.name}
+                  </span>
+                </a>
+              )
             ))}
           </div>
         </div>
@@ -267,18 +271,16 @@ export default function Solutions() {
                     >
                       {module.icon}
                     </div>
-                    {module.externalLink ? (
-                      <a
-                        href={module.externalLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    {module.productPage ? (
+                      <Link
+                        href={module.productPage}
                         className="group flex items-center gap-2"
                       >
                         <h2 className="text-2xl font-bold group-hover:underline decoration-pink-300">
                           <StyledModuleName name={module.name} />
                         </h2>
                         <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-pink transition-colors" />
-                      </a>
+                      </Link>
                     ) : (
                       <h2 className="text-2xl font-bold text-gray-950"><StyledModuleName name={module.name} /></h2>
                     )}
@@ -308,15 +310,15 @@ export default function Solutions() {
                     ))}
                   </ul>
 
-                  {module.externalLink ? (
-                    <a href={module.externalLink} target="_blank" rel="noopener noreferrer">
+                  {module.productPage ? (
+                    <Link href={module.productPage}>
                       <Button
                         className="rounded-md text-white font-semibold text-sm h-10 px-6"
                         style={{ backgroundColor: pink }}
                       >
                         View Product
                       </Button>
-                    </a>
+                    </Link>
                   ) : (
                     <Link href="/contact">
                       <Button
@@ -331,12 +333,12 @@ export default function Solutions() {
 
                 {/* Right: Preview */}
                 <div className="lg:w-1/2 w-full">
-                  {module.externalLink && (
+                  {module.productPage && (
                     <div className="mb-3 flex items-center gap-2">
                       <span className="text-xs text-gray-400">Live product</span>
                       <span className="text-xs text-gray-300">→</span>
                       <span className="text-xs font-medium" style={{ color: pink }}>
-                        {module.externalLink.replace("https://", "")}
+                        Verionai Connect
                       </span>
                     </div>
                   )}

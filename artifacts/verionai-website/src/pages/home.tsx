@@ -287,45 +287,27 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { name: "Verionai Connect", category: "HR & Engagement", desc: "Employee recognition, gamification, and resource allocation workflows.", href: "/connect", external: false },
-              { name: "Verion Trade Scheme", category: "Sales & Dealer Ops", desc: "Target schemes, AI simulation, and automated incentive payouts.", href: "/solutions", external: false },
-              { name: "Verion DataWorks", category: "Data Governance", desc: "Automated ETL, master data harmonization, and AI data cleansing.", href: "/solutions", external: false },
-              { name: "Verion Flow", category: "Workflow Automation", desc: "Multi-level approvals, visual builders, and enterprise integration.", href: "/solutions", external: false },
-              { name: "Verion ServiceWorks", category: "ITSM", desc: "AI-driven ticket routing, knowledge base, and SLA management.", href: "/solutions", external: false },
+              { name: "Verionai Connect", category: "HR & Engagement", desc: "Employee recognition, gamification, and resource allocation workflows.", href: "/connect" },
+              { name: "Verion Trade Scheme", category: "Sales & Dealer Ops", desc: "Target schemes, AI simulation, and automated incentive payouts.", href: "/solutions" },
+              { name: "Verion DataWorks", category: "Data Governance", desc: "Automated ETL, master data harmonization, and AI data cleansing.", href: "/solutions" },
+              { name: "Verion Flow", category: "Workflow Automation", desc: "Multi-level approvals, visual builders, and enterprise integration.", href: "/solutions" },
+              { name: "Verion ServiceWorks", category: "ITSM", desc: "AI-driven ticket routing, knowledge base, and SLA management.", href: "/solutions" },
             ].map((prod, i) => (
-              prod.external ? (
-                <a key={i} href={prod.href} target="_blank" rel="noopener noreferrer">
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className="h-full enterprise-card p-7 cursor-pointer group transition-all duration-200 hover:border-pink-300 flex flex-col"
-                  >
-                    <div className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: pink }}>
-                      {prod.category}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{prod.name}</h3>
-                    <p className="text-sm text-gray-500 flex-grow leading-relaxed">{prod.desc}</p>
-                    <div className="mt-7 flex items-center text-sm font-medium text-gray-400 group-hover:text-pink transition-colors">
-                      View Product <ArrowRight className="w-4 h-4 ml-1.5" />
-                    </div>
-                  </motion.div>
-                </a>
-              ) : (
-                <Link key={i} href={prod.href}>
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className="h-full enterprise-card p-7 cursor-pointer group transition-all duration-200 hover:border-pink-300 flex flex-col"
-                  >
-                    <div className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: pink }}>
-                      {prod.category}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{prod.name}</h3>
-                    <p className="text-sm text-gray-500 flex-grow leading-relaxed">{prod.desc}</p>
-                    <div className="mt-7 flex items-center text-sm font-medium text-gray-400 group-hover:text-pink transition-colors">
-                      Explore <ArrowRight className="w-4 h-4 ml-1.5" />
-                    </div>
-                  </motion.div>
-                </Link>
-              )
+              <Link key={i} href={prod.href}>
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="h-full enterprise-card p-7 cursor-pointer group transition-all duration-200 hover:border-pink-300 flex flex-col"
+                >
+                  <div className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: pink }}>
+                    {prod.category}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{prod.name}</h3>
+                  <p className="text-sm text-gray-500 flex-grow leading-relaxed">{prod.desc}</p>
+                  <div className="mt-7 flex items-center text-sm font-medium text-gray-400 group-hover:text-pink transition-colors">
+                    {prod.href === "/connect" ? "View Product" : "Explore"} <ArrowRight className="w-4 h-4 ml-1.5" />
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
