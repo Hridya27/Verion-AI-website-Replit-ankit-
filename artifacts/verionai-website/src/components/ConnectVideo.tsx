@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, RotateCcw, Volume2, VolumeX, Star, TrendingUp, Award, CheckCircle, Users, Brain } from "lucide-react";
 
 const PINK = "#D4196A";
-const TOTAL_SCENES = 6;
+const TOTAL_SCENES = 7;
 
-const MIN_DURATIONS = [3200, 5000, 5500, 5500, 5000, 3200];
+const MIN_DURATIONS = [3200, 5000, 5500, 5500, 5500, 5000, 3200];
 const SPEECH_SAFETY_MS = 9000;
 
 // Each scene is an array of short phrases — spoken one by one with natural breath gaps.
@@ -29,6 +29,11 @@ const VOICEOVER: string[][] = [
     "The Recognition Engine makes performance visible.",
     "Gamified points, achievement badges, and live leaderboards.",
     "Driving genuine engagement, every single day.",
+  ],
+  [
+    "The GROW Collaboration Feed keeps your team connected.",
+    "Spotlight colleagues. Celebrate wins. Appreciate great work.",
+    "Recognition that's visible across your entire organization.",
   ],
   [
     "Three-sixty workforce analytics — from hire to retire.",
@@ -71,133 +76,162 @@ function CountUp({ to, duration = 1800 }: { to: number; duration?: number }) {
   return <>{val.toLocaleString()}</>;
 }
 
-// ── Web Audio Music Engine ────────────────────────────────────────
+// ── Web Audio Music Engine — Corporate Pulse ──────────────────────
+// 85 BPM · soft sub-kick · brush hi-hats · warm sine pad chords (Am key)
 
 class MusicEngine {
   private ctx: AudioContext;
   private master: GainNode;
   private reverb!: ConvolverNode;
-  private reverbSend: GainNode;
+  private wetBus: GainNode;
   private dryBus: GainNode;
   private running = false;
   private timerID: ReturnType<typeof setTimeout> | null = null;
-  private nextNote = 0;
-  private tick = 0;
-  private readonly bpm = 120;
+  private nextBeatTime = 0;
+  private beatCount = 0;
+  private readonly bpm = 85;
   private readonly beat: number;
+
+  // A-minor chord progression: root (Hz) + pad tones (Hz)
+  private readonly chords = [
+    { root: 55,    tones: [110, 130.81, 164.81] }, // Am
+    { root: 43.65, tones: [87.31, 110, 130.81]  }, // Fmaj
+    { root: 65.41, tones: [130.81, 164.81, 196]  }, // Cmaj
+    { root: 49,    tones: [98, 123.47, 146.83]   }, // Gmaj
+  ];
 
   constructor() {
     this.ctx = new AudioContext();
     this.beat = 60 / this.bpm;
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.26;
+    this.master.gain.value = 0.22;
     this.master.connect(this.ctx.destination);
     this.dryBus = this.ctx.createGain();
-    this.dryBus.gain.value = 1;
+    this.dryBus.gain.value = 0.78;
     this.dryBus.connect(this.master);
-    this.reverbSend = this.ctx.createGain();
-    this.reverbSend.gain.value = 0.22;
-    this.reverbSend.connect(this.master);
+    this.wetBus = this.ctx.createGain();
+    this.wetBus.gain.value = 0.22;
+    this.wetBus.connect(this.master);
     this.buildReverb();
   }
 
   private buildReverb() {
     const sr = this.ctx.sampleRate;
-    const len = sr * 2;
+    const len = Math.ceil(sr * 2.8);
     const buf = this.ctx.createBuffer(2, len, sr);
     for (let c = 0; c < 2; c++) {
       const d = buf.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.8);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.0);
     }
     this.reverb = this.ctx.createConvolver();
     this.reverb.buffer = buf;
-    this.reverb.connect(this.reverbSend);
+    this.reverb.connect(this.wetBus);
   }
 
-  private wire(node: AudioNode, wet = false) {
-    node.connect(this.dryBus);
-    if (wet) node.connect(this.reverb);
-  }
-
-  private kick(t: number) {
+  // Soft sub-kick — low sine sweep, very gentle
+  private subKick(t: number) {
     const osc = this.ctx.createOscillator();
     const g = this.ctx.createGain();
-    osc.frequency.setValueAtTime(170, t);
-    osc.frequency.exponentialRampToValueAtTime(0.001, t + 0.48);
-    g.gain.setValueAtTime(1, t);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.48);
-    osc.connect(g); this.wire(g);
-    osc.start(t); osc.stop(t + 0.5);
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(68, t);
+    osc.frequency.exponentialRampToValueAtTime(32, t + 0.55);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.3, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    osc.connect(g); g.connect(this.dryBus);
+    osc.start(t); osc.stop(t + 0.65);
   }
 
-  private clap(t: number) {
-    const buf = this.ctx.createBuffer(1, Math.ceil(this.ctx.sampleRate * 0.18), this.ctx.sampleRate);
+  // Brush snare — filtered noise, very quiet
+  private brush(t: number) {
+    const len = Math.ceil(this.ctx.sampleRate * 0.09);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
     const d = buf.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     const src = this.ctx.createBufferSource(); src.buffer = buf;
-    const bp = this.ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1400; bp.Q.value = 0.6;
+    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 3500;
+    const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 9000;
     const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.42, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-    src.connect(bp); bp.connect(g); this.wire(g, true);
+    g.gain.setValueAtTime(0.065, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+    src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(this.dryBus);
     src.start(t);
   }
 
-  private hihat(t: number, open = false) {
-    const dur = open ? 0.14 : 0.038;
-    const buf = this.ctx.createBuffer(1, Math.ceil(this.ctx.sampleRate * dur), this.ctx.sampleRate);
+  // Closed hi-hat — minimal tick
+  private hihat(t: number) {
+    const len = Math.ceil(this.ctx.sampleRate * 0.022);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
     const d = buf.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     const src = this.ctx.createBufferSource(); src.buffer = buf;
-    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 9500;
+    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 10000;
     const g = this.ctx.createGain();
-    g.gain.setValueAtTime(open ? 0.22 : 0.13, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-    src.connect(hp); hp.connect(g); this.wire(g);
+    g.gain.setValueAtTime(0.048, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
+    src.connect(hp); hp.connect(g); g.connect(this.dryBus);
     src.start(t);
   }
 
-  private readonly bassSeq = [55, 55, 73.4, 55, 82.4, 73.4, 55, 82.4];
-  private bass(t: number, freq: number) {
-    const osc = this.ctx.createOscillator(); osc.type = "sawtooth"; osc.frequency.value = freq;
-    const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass";
-    lp.frequency.setValueAtTime(240, t); lp.frequency.exponentialRampToValueAtTime(70, t + this.beat * 0.9);
-    const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.001, t + this.beat * 0.92);
-    osc.connect(lp); lp.connect(g); this.wire(g);
-    osc.start(t); osc.stop(t + this.beat);
+  // Warm sine pad — 3 detuned oscillators per tone, long attack, low-pass filtered
+  private pad(t: number, freq: number, dur: number) {
+    [0, 5, -5].forEach((cents) => {
+      const osc = this.ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.value = freq * Math.pow(2, cents / 1200);
+      const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 550;
+      const g = this.ctx.createGain();
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.11, t + 0.9);
+      g.gain.setValueAtTime(0.11, t + dur - 0.5);
+      g.gain.linearRampToValueAtTime(0, t + dur);
+      osc.connect(lp); lp.connect(g);
+      g.connect(this.dryBus); g.connect(this.reverb);
+      osc.start(t); osc.stop(t + dur + 0.1);
+    });
   }
 
-  private readonly melodyNotes = [440, 523.25, 587.33, 659.25, 783.99, 659.25, 523.25, 440];
-  private readonly melodyMask = [1, 0, 1, 0, 1, 0, 1, 0];
-  private pluck(t: number, freq: number) {
-    const osc = this.ctx.createOscillator(); osc.type = "triangle"; osc.frequency.value = freq;
+  // Soft sine bass root
+  private bassNote(t: number, freq: number, dur: number) {
+    const osc = this.ctx.createOscillator();
+    osc.type = "sine"; osc.frequency.value = freq;
     const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.1, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.28);
-    osc.connect(g); this.wire(g, true);
-    osc.start(t); osc.stop(t + 0.3);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.26, t + 0.18);
+    g.gain.setValueAtTime(0.26, t + dur - 0.35);
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    osc.connect(g); g.connect(this.dryBus);
+    osc.start(t); osc.stop(t + dur + 0.1);
   }
 
   private schedule() {
-    while (this.nextNote < this.ctx.currentTime + 0.12) {
-      const n16 = this.tick % 16;
-      const n32 = this.tick % 32;
-      const t = this.nextNote;
-      if (n16 === 0 || n16 === 8) this.kick(t);
-      if (n16 === 4 || n16 === 12) this.clap(t);
-      if (n16 % 2 === 0) this.hihat(t, n16 === 10);
-      if (n16 % 4 === 0) this.bass(t, this.bassSeq[(n16 / 4) % this.bassSeq.length]);
-      const mi = (n32 / 4) % this.melodyNotes.length;
-      if (n32 % 4 === 0 && this.melodyMask[mi]) this.pluck(t, this.melodyNotes[mi]);
-      this.nextNote += this.beat / 4;
-      this.tick++;
+    while (this.nextBeatTime < this.ctx.currentTime + 0.15) {
+      const barBeat = this.beatCount % 4;
+      const barNum  = Math.floor(this.beatCount / 4) % this.chords.length;
+      const t = this.nextBeatTime;
+      const chord = this.chords[barNum];
+      const barDur = this.beat * 4.6; // slightly overlapping for smooth transitions
+
+      // Bar beat 1 — sub-kick + new chord pad + bass
+      if (barBeat === 0) {
+        this.subKick(t);
+        chord.tones.forEach((f) => this.pad(t, f, barDur));
+        this.bassNote(t, chord.root, barDur);
+      }
+      // Beat 2 & 4 — brush
+      if (barBeat === 1 || barBeat === 3) this.brush(t);
+      // Every beat — gentle hi-hat
+      this.hihat(t);
+
+      this.nextBeatTime += this.beat;
+      this.beatCount++;
     }
-    if (this.running) this.timerID = setTimeout(() => this.schedule(), 22);
+    if (this.running) this.timerID = setTimeout(() => this.schedule(), 25);
   }
 
   start() {
     if (this.ctx.state === "suspended") this.ctx.resume();
     this.running = true;
-    this.nextNote = this.ctx.currentTime + 0.05;
-    this.tick = 0;
+    this.nextBeatTime = this.ctx.currentTime + 0.05;
+    this.beatCount = 0;
     this.schedule();
   }
 
@@ -210,13 +244,13 @@ class MusicEngine {
   resume() {
     this.running = true;
     this.ctx.resume().then(() => {
-      this.nextNote = this.ctx.currentTime + 0.05;
+      this.nextBeatTime = this.ctx.currentTime + 0.05;
       this.schedule();
     });
   }
 
   setVolume(v: number) {
-    this.master.gain.setTargetAtTime(v, this.ctx.currentTime, 0.08);
+    this.master.gain.setTargetAtTime(v, this.ctx.currentTime, 0.1);
   }
 
   destroy() {
@@ -446,6 +480,101 @@ function Scene3() {
   );
 }
 
+// ── Scene 4 — GROW Collaboration Feed ────────────────────────────
+function SceneCollab() {
+  const posts = [
+    {
+      from: "Alex K",
+      fromInitials: "AK",
+      action: "spotlighted",
+      to: "Sarah C",
+      toInitials: "SC",
+      message: "Sarah's data analysis on the Deloitte pitch was exceptional. She owned the room.",
+      tag: "🌟 Spotlight",
+      tagColor: "#F59E0B",
+      reactions: [{ emoji: "👏", count: 34 }, { emoji: "❤️", count: 19 }, { emoji: "🏆", count: 11 }],
+      delay: 0.3,
+    },
+    {
+      from: "Priya R",
+      fromInitials: "PR",
+      action: "appreciated",
+      to: "Raj M",
+      toInitials: "RM",
+      message: "Outstanding problem-solving on the SAP migration. True team player — went above and beyond.",
+      tag: "💎 Appreciate",
+      tagColor: PINK,
+      reactions: [{ emoji: "👏", count: 28 }, { emoji: "🙌", count: 16 }],
+      delay: 0.85,
+    },
+    {
+      from: "Team Lead",
+      fromInitials: "TL",
+      action: "spotlighted the team",
+      to: "Digital Transform",
+      toInitials: "DT",
+      message: "Maya R · Sam K · Alex T — delivered 3 weeks ahead of schedule. Phenomenal effort.",
+      tag: "🎯 Team Spotlight",
+      tagColor: "#10B981",
+      reactions: [{ emoji: "🚀", count: 52 }, { emoji: "👏", count: 41 }, { emoji: "❤️", count: 38 }],
+      delay: 1.45,
+    },
+  ];
+
+  return (
+    <div className="flex flex-col w-full h-full gap-3">
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}
+        className="flex items-center gap-2">
+        <span className="text-base md:text-xl font-bold text-white">GROW</span>
+        <span className="text-base md:text-xl font-bold text-white/50">Collaboration Feed</span>
+        <span className="ml-auto text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded-full border"
+          style={{ borderColor: PINK, color: PINK }}>Live</span>
+      </motion.div>
+
+      <div className="flex flex-col gap-2.5 flex-1">
+        {posts.map((p, i) => (
+          <motion.div key={i}
+            initial={{ opacity: 0, x: -18 }} animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: p.delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-xl border border-white/10 bg-white/5 p-3.5 flex flex-col gap-2">
+            {/* Header row */}
+            <div className="flex items-center gap-2.5">
+              {/* From avatar */}
+              <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold text-white shrink-0"
+                style={{ background: `${PINK}55`, border: `1.5px solid ${PINK}` }}>
+                {p.fromInitials}
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-xs font-bold text-white">{p.from}</span>
+                <span className="text-xs text-white/40"> {p.action} </span>
+                <span className="text-xs font-bold" style={{ color: PINK }}>{p.to}</span>
+              </div>
+              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                style={{ background: `${p.tagColor}22`, color: p.tagColor }}>
+                {p.tag}
+              </span>
+            </div>
+            {/* Message */}
+            <p className="text-[11px] text-white/65 leading-snug pl-9">{p.message}</p>
+            {/* Reactions */}
+            <div className="flex items-center gap-2 pl-9">
+              {p.reactions.map((r, j) => (
+                <motion.span key={j}
+                  initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: p.delay + 0.35 + j * 0.1 }}
+                  className="flex items-center gap-1 text-[10px] text-white/50 bg-white/5 rounded-full px-2 py-0.5">
+                  <span>{r.emoji}</span>
+                  <span className="font-semibold">{r.count}</span>
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Scene4() {
   const kpis = [
     { label: "Retention Rate", value: 94, suffix: "%" },
@@ -516,7 +645,7 @@ function Scene5() {
   );
 }
 
-const SCENES = [Scene0, Scene1, Scene2, Scene3, Scene4, Scene5];
+const SCENES = [Scene0, Scene1, Scene2, Scene3, SceneCollab, Scene4, Scene5];
 
 // ── Main Component ────────────────────────────────────────────────
 
