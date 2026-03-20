@@ -238,50 +238,58 @@ export default function ConnectPage() {
       <section
         id="features"
         className="relative overflow-hidden pt-16 pb-32"
-        style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)" }}
+        style={{ background: "linear-gradient(135deg, #0A0A0A 0%, #111111 60%, #1a0008 100%)" }}
       >
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(212,25,106,0.12) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(212,25,106,0.07) 0%, transparent 70%)" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(212,25,106,0.04) 0%, transparent 70%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-blue-300 text-xs font-medium mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-medium mb-8 backdrop-blur-sm" style={{ background: "rgba(212,25,106,0.08)", borderColor: "rgba(212,25,106,0.25)", color: "#f472b6" }}>
               <Zap className="h-3.5 w-3.5" />
               Enterprise Talent & Resource Intelligence Platform
             </div>
-            <div className="mb-4">
-              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight" style={{ letterSpacing: "-0.02em" }}>
-                <span style={{ color: PINK }}>Verion</span>
-                <span className="text-white">ai</span>
-                <span className="text-white/60 font-semibold"> Connect</span>
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
-              Grow Your People.
+
+            {/* Product name — primary hero */}
+            <h1 className="font-extrabold leading-none tracking-tight" style={{ fontSize: "clamp(3rem, 9vw, 6.5rem)", letterSpacing: "-0.03em" }}>
+              <span style={{ color: PINK }}>Verion</span>
+              <span className="text-white">ai</span>
+              <span className="text-white"> Connect</span>
             </h1>
-            <p className="mt-3 text-lg sm:text-xl font-medium tracking-wide bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
-              Connect | Recognize | Succeed
+
+            {/* Tagline — secondary, visually smaller */}
+            <p className="mt-5 text-xl sm:text-2xl font-semibold text-white/60 tracking-wide">
+              Grow Your People.
             </p>
-            <p className="mt-6 text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+
+            <p className="mt-3 text-sm sm:text-base font-medium tracking-widest uppercase" style={{ color: PINK, opacity: 0.8 }}>
+              Connect &nbsp;·&nbsp; Recognize &nbsp;·&nbsp; Succeed
+            </p>
+
+            <p className="mt-7 text-base sm:text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
               The all-in-one platform for professional services firms — talent management, resource allocation,
               recognition, and AI-driven insights across every service line and practice area.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+
+            <div className="mt-9 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className="group px-8 py-3.5 font-semibold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-base text-white"
                 style={{
-                  background: "linear-gradient(to right, #2563EB, #3B82F6)",
-                  boxShadow: "0 10px 25px -5px rgba(37,99,235,0.25)",
+                  background: `linear-gradient(to right, ${PINK}, #e8317a)`,
+                  boxShadow: `0 10px 30px -5px rgba(212,25,106,0.35)`,
                 }}
               >
-                Launch Verionai Connect
+                Contact Us
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
                 href="#capabilities"
-                className="group px-8 py-3.5 bg-white/10 border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all flex items-center justify-center gap-2 text-base backdrop-blur-sm"
+                className="group px-8 py-3.5 border text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-base backdrop-blur-sm"
+                style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.15)" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.10)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
               >
                 Explore Features
                 <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
