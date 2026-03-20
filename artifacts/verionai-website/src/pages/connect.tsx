@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import ConnectVideo from "../components/ConnectVideo";
 import {
   Users, Brain, Shield, BarChart3, MessageSquare, Award,
   ChevronRight, Star, Zap, Globe, Lock, Layers, Briefcase,
@@ -307,6 +308,23 @@ export default function ConnectPage() {
           </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent" />
+      </section>
+
+      {/* Video Section */}
+      <section className="py-20 sm:py-28 bg-black relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border mb-8 backdrop-blur-sm" style={{ background: "rgba(212,25,106,0.1)", borderColor: "rgba(212,25,106,0.3)", color: "#f472b6" }}>
+            <Zap className="h-3.5 w-3.5" />
+            <span className="text-xs font-semibold">See It in Action</span>
+          </div>
+          
+          <div className="w-full shadow-2xl shadow-pink-500/10 rounded-2xl border border-white/10 bg-black/50 p-2">
+            <ConnectVideo />
+          </div>
+        </div>
       </section>
 
       <section id="capabilities" className="py-20 sm:py-28 bg-white scroll-mt-20">
