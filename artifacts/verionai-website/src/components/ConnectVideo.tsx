@@ -8,13 +8,37 @@ const TOTAL_SCENES = 6;
 const MIN_DURATIONS = [3200, 5000, 5500, 5500, 5000, 3200];
 const SPEECH_SAFETY_MS = 9000;
 
-const VOICEOVER = [
-  "Introducing Verionai Connect — the enterprise talent and resource intelligence platform.",
-  "Right now, your talent data is scattered across disconnected systems. People are mismatched to projects. Growth potential stays completely invisible.",
-  "Verionai Connect unifies everything. Every employee profile, every skill, every project opportunity — intelligently matched on one platform.",
-  "Our Recognition Engine makes performance visible. Gamified points, achievement badges, and live leaderboards that drive genuine engagement.",
-  "Three-sixty workforce analytics from hire to retire. Every hiring, retention, and resource decision — powered by AI.",
-  "Grow your people. Verionai Connect.",
+// Each scene is an array of short phrases — spoken one by one with natural breath gaps.
+// "Verrion AI" is spelled phonetically so TTS pronounces it correctly.
+const VOICEOVER: string[][] = [
+  [
+    "Introducing Verrion AI Connect.",
+    "The enterprise talent and resource intelligence platform.",
+  ],
+  [
+    "Right now, your talent data is scattered across disconnected systems.",
+    "People are mismatched to projects.",
+    "And growth potential stays completely invisible.",
+  ],
+  [
+    "Verrion AI Connect brings everything together.",
+    "Every employee profile. Every skill. Every opportunity.",
+    "Intelligently matched — on one platform.",
+  ],
+  [
+    "The Recognition Engine makes performance visible.",
+    "Gamified points, achievement badges, and live leaderboards.",
+    "Driving genuine engagement, every single day.",
+  ],
+  [
+    "Three-sixty workforce analytics — from hire to retire.",
+    "Every resource decision. Every hiring call.",
+    "Powered by AI.",
+  ],
+  [
+    "Grow your people.",
+    "Verrion AI Connect.",
+  ],
 ];
 
 // ── Helpers ──────────────────────────────────────────────────────
@@ -533,22 +557,37 @@ export default function ConnectVideo() {
       return;
     }
     window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(VOICEOVER[idx]);
-    utter.rate = 0.87;
-    utter.pitch = 1.02;
-    utter.volume = 1.0;
+
+    const phrases = VOICEOVER[idx];
     const voice = getPreferredVoice();
-    if (voice) utter.voice = voice;
-    utter.onend = () => {
+    let phraseIdx = 0;
+
+    function speakNext() {
       if (statusRef.current !== "playing") return;
-      speechDoneRef.current = true;
-      tryAdvance();
-    };
-    utter.onerror = () => {
-      speechDoneRef.current = true;
-      tryAdvance();
-    };
-    window.speechSynthesis.speak(utter);
+      if (phraseIdx >= phrases.length) {
+        speechDoneRef.current = true;
+        tryAdvance();
+        return;
+      }
+      const utter = new SpeechSynthesisUtterance(phrases[phraseIdx]);
+      utter.rate = 0.84;
+      utter.pitch = 1.0;
+      utter.volume = 1.0;
+      if (voice) utter.voice = voice;
+      utter.onend = () => {
+        if (statusRef.current !== "playing") return;
+        phraseIdx++;
+        // Natural breath gap between phrases (180 ms)
+        setTimeout(speakNext, 180);
+      };
+      utter.onerror = () => {
+        phraseIdx++;
+        setTimeout(speakNext, 100);
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    speakNext();
   };
 
   const startScene = (idx: number) => {
