@@ -25,8 +25,9 @@ function CountUp({ to, duration = 1800 }: { to: number; duration?: number }) {
   return <>{val.toLocaleString()}</>;
 }
 
-// ── Ambient background music (gentle sine pad loop) ───────────────
-// 85 BPM · soft sub-kick · brush hi-hats · warm sine pad chords (Am key)
+// ── Web Audio Music Engine — Energetic Electronic ─────────────────
+// 126 BPM · four-on-floor kick · punchy bass · 8th-note hi-hats · synth pads
+// Scheduled per 16th-note grid for tight groove
 
 class MusicEngine {
   private ctx: AudioContext;
@@ -36,151 +37,195 @@ class MusicEngine {
   private dryBus: GainNode;
   private running = false;
   private timerID: ReturnType<typeof setTimeout> | null = null;
-  private nextBeatTime = 0;
-  private beatCount = 0;
-  private readonly bpm = 85;
-  private readonly beat: number;
+  private nextTick = 0;   // next 16th-note timestamp
+  private tickCount = 0;  // absolute 16th-note counter
+  private readonly bpm = 126;
+  private readonly s16: number; // seconds per 16th note
 
-  // A-minor chord progression: root (Hz) + pad tones (Hz)
-  private readonly chords = [
-    { root: 55,    tones: [110, 130.81, 164.81] }, // Am
-    { root: 43.65, tones: [87.31, 110, 130.81]  }, // Fmaj
-    { root: 65.41, tones: [130.81, 164.81, 196]  }, // Cmaj
-    { root: 49,    tones: [98, 123.47, 146.83]   }, // Gmaj
+  // Am → Dm → Fmaj → Em  (each chord lasts 16 ticks = 1 bar)
+  private readonly progression = [
+    [110, 130.81, 164.81], // Am
+    [73.42, 110, 146.83],  // Dm
+    [87.31, 110, 130.81],  // Fmaj
+    [82.41, 98,  123.47],  // Em
   ];
+  // Staccato bass root notes (Hz) per bar, mirrors chord roots
+  private readonly bassRoots = [55, 36.71, 43.65, 41.2];
 
   constructor() {
     this.ctx = new AudioContext();
-    this.beat = 60 / this.bpm;
+    this.s16 = (60 / this.bpm) / 4;
     this.master = this.ctx.createGain();
-    this.master.gain.value = 0.22;
+    this.master.gain.value = 0.17; // stays under the voice
     this.master.connect(this.ctx.destination);
     this.dryBus = this.ctx.createGain();
-    this.dryBus.gain.value = 0.78;
+    this.dryBus.gain.value = 0.82;
     this.dryBus.connect(this.master);
     this.wetBus = this.ctx.createGain();
-    this.wetBus.gain.value = 0.22;
+    this.wetBus.gain.value = 0.18;
     this.wetBus.connect(this.master);
-    this.buildReverb();
+    this.buildReverb(0.9); // shorter reverb = punchier
   }
 
-  private buildReverb() {
+  private buildReverb(dur: number) {
     const sr = this.ctx.sampleRate;
-    const len = Math.ceil(sr * 2.8);
+    const len = Math.ceil(sr * dur);
     const buf = this.ctx.createBuffer(2, len, sr);
     for (let c = 0; c < 2; c++) {
       const d = buf.getChannelData(c);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.5);
     }
     this.reverb = this.ctx.createConvolver();
     this.reverb.buffer = buf;
     this.reverb.connect(this.wetBus);
   }
 
-  // Soft sub-kick — low sine sweep, very gentle
-  private subKick(t: number) {
+  // Four-on-floor kick — punchy sine sweep, prominent
+  private kick(t: number) {
     const osc = this.ctx.createOscillator();
     const g = this.ctx.createGain();
     osc.type = "sine";
-    osc.frequency.setValueAtTime(68, t);
-    osc.frequency.exponentialRampToValueAtTime(32, t + 0.55);
+    osc.frequency.setValueAtTime(90, t);
+    osc.frequency.exponentialRampToValueAtTime(38, t + 0.38);
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.3, t + 0.012);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    g.gain.linearRampToValueAtTime(0.68, t + 0.004); // sharp attack
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
     osc.connect(g); g.connect(this.dryBus);
-    osc.start(t); osc.stop(t + 0.65);
+    osc.start(t); osc.stop(t + 0.42);
   }
 
-  // Brush snare — filtered noise, very quiet
-  private brush(t: number) {
-    const len = Math.ceil(this.ctx.sampleRate * 0.09);
+  // Snare — noise + body tone
+  private snare(t: number) {
+    // Noise component
+    const nLen = Math.ceil(this.ctx.sampleRate * 0.14);
+    const nBuf = this.ctx.createBuffer(1, nLen, this.ctx.sampleRate);
+    const nd = nBuf.getChannelData(0);
+    for (let i = 0; i < nLen; i++) nd[i] = Math.random() * 2 - 1;
+    const nSrc = this.ctx.createBufferSource(); nSrc.buffer = nBuf;
+    const bp = this.ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1800; bp.Q.value = 0.7;
+    const nG = this.ctx.createGain();
+    nG.gain.setValueAtTime(0.38, t); nG.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+    nSrc.connect(bp); bp.connect(nG); nG.connect(this.dryBus); nG.connect(this.reverb);
+    nSrc.start(t);
+    // Body tone
+    const bOsc = this.ctx.createOscillator(); bOsc.type = "triangle"; bOsc.frequency.value = 200;
+    const bG = this.ctx.createGain();
+    bG.gain.setValueAtTime(0.22, t); bG.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+    bOsc.connect(bG); bG.connect(this.dryBus);
+    bOsc.start(t); bOsc.stop(t + 0.1);
+  }
+
+  // Closed hi-hat — tight, 8th-note energy
+  private hihatClosed(t: number) {
+    const len = Math.ceil(this.ctx.sampleRate * 0.032);
     const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
     const d = buf.getChannelData(0);
     for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
     const src = this.ctx.createBufferSource(); src.buffer = buf;
-    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 3500;
-    const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 9000;
+    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 9500;
     const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.065, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
-    src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(this.dryBus);
-    src.start(t);
-  }
-
-  // Closed hi-hat — minimal tick
-  private hihat(t: number) {
-    const len = Math.ceil(this.ctx.sampleRate * 0.022);
-    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
-    const src = this.ctx.createBufferSource(); src.buffer = buf;
-    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 10000;
-    const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0.048, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.022);
+    g.gain.setValueAtTime(0.11, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.032);
     src.connect(hp); hp.connect(g); g.connect(this.dryBus);
     src.start(t);
   }
 
-  // Warm sine pad — 3 detuned oscillators per tone, long attack, low-pass filtered
-  private pad(t: number, freq: number, dur: number) {
-    [0, 5, -5].forEach((cents) => {
-      const osc = this.ctx.createOscillator();
-      osc.type = "sine";
-      osc.frequency.value = freq * Math.pow(2, cents / 1200);
-      const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 550;
-      const g = this.ctx.createGain();
-      g.gain.setValueAtTime(0, t);
-      g.gain.linearRampToValueAtTime(0.11, t + 0.9);
-      g.gain.setValueAtTime(0.11, t + dur - 0.5);
-      g.gain.linearRampToValueAtTime(0, t + dur);
-      osc.connect(lp); lp.connect(g);
-      g.connect(this.dryBus); g.connect(this.reverb);
-      osc.start(t); osc.stop(t + dur + 0.1);
+  // Open hi-hat — accent on upbeats
+  private hihatOpen(t: number) {
+    const len = Math.ceil(this.ctx.sampleRate * 0.18);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const src = this.ctx.createBufferSource(); src.buffer = buf;
+    const hp = this.ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 9000;
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0.16, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+    src.connect(hp); hp.connect(g); g.connect(this.dryBus); g.connect(this.reverb);
+    src.start(t);
+  }
+
+  // Punchy staccato bass — square → low-pass, short envelope
+  private bass(t: number, freq: number) {
+    const dur = this.s16 * 1.6;
+    // Sub sine layer
+    const sub = this.ctx.createOscillator(); sub.type = "sine"; sub.frequency.value = freq;
+    // Square layer (harmonics)
+    const sq = this.ctx.createOscillator(); sq.type = "square"; sq.frequency.value = freq;
+    const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 380;
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.42, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    sub.connect(g); sq.connect(lp); lp.connect(g); g.connect(this.dryBus);
+    sub.start(t); sub.stop(t + dur + 0.05);
+    sq.start(t); sq.stop(t + dur + 0.05);
+  }
+
+  // Synth pad — sustained chord, subtle presence under the groove
+  private pad(t: number, tones: number[], dur: number) {
+    tones.forEach((freq) => {
+      [0, 7, -7].forEach((cents) => {
+        const osc = this.ctx.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.value = freq * Math.pow(2, cents / 1200);
+        const lp = this.ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 700;
+        const g = this.ctx.createGain();
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(0.028, t + 0.25); // fast-ish attack for energy
+        g.gain.setValueAtTime(0.028, t + dur - 0.3);
+        g.gain.linearRampToValueAtTime(0, t + dur);
+        osc.connect(lp); lp.connect(g);
+        g.connect(this.dryBus); g.connect(this.reverb);
+        osc.start(t); osc.stop(t + dur + 0.1);
+      });
     });
   }
 
-  // Soft sine bass root
-  private bassNote(t: number, freq: number, dur: number) {
-    const osc = this.ctx.createOscillator();
-    osc.type = "sine"; osc.frequency.value = freq;
-    const g = this.ctx.createGain();
-    g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.26, t + 0.18);
-    g.gain.setValueAtTime(0.26, t + dur - 0.35);
-    g.gain.linearRampToValueAtTime(0, t + dur);
-    osc.connect(g); g.connect(this.dryBus);
-    osc.start(t); osc.stop(t + dur + 0.1);
-  }
-
   private schedule() {
-    while (this.nextBeatTime < this.ctx.currentTime + 0.15) {
-      const barBeat = this.beatCount % 4;
-      const barNum  = Math.floor(this.beatCount / 4) % this.chords.length;
-      const t = this.nextBeatTime;
-      const chord = this.chords[barNum];
-      const barDur = this.beat * 4.6; // slightly overlapping for smooth transitions
+    while (this.nextTick < this.ctx.currentTime + 0.15) {
+      const t = this.nextTick;
+      const s = this.tickCount;
+      const pos = s % 16;            // position within bar (0–15)
+      const barIdx = Math.floor(s / 16) % this.progression.length;
 
-      // Bar beat 1 — sub-kick + new chord pad + bass
-      if (barBeat === 0) {
-        this.subKick(t);
-        chord.tones.forEach((f) => this.pad(t, f, barDur));
-        this.bassNote(t, chord.root, barDur);
+      // ── Kick: four-on-floor (every 4 sixteenths = every beat)
+      if (pos % 4 === 0) this.kick(t);
+
+      // ── Snare: beats 2 and 4 (positions 4 and 12)
+      if (pos === 4 || pos === 12) this.snare(t);
+
+      // ── Hi-hats: closed on every 8th note (pos 0,2,4,6,8,10,12,14)
+      //            open on "and" of beat 3 (pos 10) and beat 4 (pos 14)
+      if (pos % 2 === 0) {
+        if (pos === 10 || pos === 14) this.hihatOpen(t);
+        else this.hihatClosed(t);
       }
-      // Beat 2 & 4 — brush
-      if (barBeat === 1 || barBeat === 3) this.brush(t);
-      // Every beat — gentle hi-hat
-      this.hihat(t);
 
-      this.nextBeatTime += this.beat;
-      this.beatCount++;
+      // ── Bass: on every 8th note, staccato pattern
+      //   Root on beat 1 (pos 0), fifth on other 8th notes
+      if (pos % 2 === 0) {
+        const root = this.bassRoots[barIdx];
+        const fifth = root * 1.5;
+        const bassPattern = [root, fifth, root, fifth, root, fifth, fifth, root];
+        this.bass(t, bassPattern[(pos / 2) % bassPattern.length]);
+      }
+
+      // ── Chord pad: fire once per bar, sustain for the bar duration
+      if (pos === 0) {
+        const barDur = this.s16 * 16.8; // slightly longer for overlap
+        this.pad(t, this.progression[barIdx], barDur);
+      }
+
+      this.nextTick += this.s16;
+      this.tickCount++;
     }
-    if (this.running) this.timerID = setTimeout(() => this.schedule(), 25);
+    if (this.running) this.timerID = setTimeout(() => this.schedule(), 20);
   }
 
   start() {
     if (this.ctx.state === "suspended") this.ctx.resume();
     this.running = true;
-    this.nextBeatTime = this.ctx.currentTime + 0.05;
-    this.beatCount = 0;
+    this.nextTick = this.ctx.currentTime + 0.05;
+    this.tickCount = 0;
     this.schedule();
   }
 
@@ -193,13 +238,13 @@ class MusicEngine {
   resume() {
     this.running = true;
     this.ctx.resume().then(() => {
-      this.nextBeatTime = this.ctx.currentTime + 0.05;
+      this.nextTick = this.ctx.currentTime + 0.05;
       this.schedule();
     });
   }
 
   setVolume(v: number) {
-    this.master.gain.setTargetAtTime(v, this.ctx.currentTime, 0.1);
+    this.master.gain.setTargetAtTime(v, this.ctx.currentTime, 0.08);
   }
 
   destroy() {
