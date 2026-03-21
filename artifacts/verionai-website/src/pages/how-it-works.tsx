@@ -160,6 +160,20 @@ export default function HowItWorks() {
               </Link>
             </div>
           </div>
+
+          <div className="mt-8 p-6 rounded-xl border border-gray-200 bg-gray-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-gray-500">
+              Not sure which path fits your challenge? Our team will help you decide in a free 30-minute discovery call.
+            </p>
+            <Link href="/contact">
+              <Button
+                className="rounded-md text-white font-semibold text-sm shrink-0"
+                style={{ backgroundColor: pink }}
+              >
+                Book a Discovery Call
+              </Button>
+            </Link>
+          </div>
         </div>
 
         <div className="mt-12 pt-10 border-t border-gray-100">

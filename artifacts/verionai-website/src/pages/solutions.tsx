@@ -443,7 +443,7 @@ export default function Solutions() {
 
           {/* Section header */}
           <div className="max-w-3xl mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-5 text-xs font-semibold" style={{ borderColor: `${pink}30`, backgroundColor: `${pink}06`, color: pink }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-5 text-xs font-semibold" style={{ borderColor: "hsl(262 83% 55% / 0.3)", backgroundColor: "hsl(262 83% 55% / 0.07)", color: purple }}>
               <Bot className="w-3.5 h-3.5" />
               Agent-as-a-Service
             </div>
