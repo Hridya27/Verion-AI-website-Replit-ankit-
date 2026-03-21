@@ -1,4 +1,5 @@
-import { Server, Shield, Layers, Workflow, Database, Cpu } from "lucide-react";
+import { Link } from "wouter";
+import { Server, Shield, Layers, Workflow, Database, Cpu, Bot, LayoutTemplate } from "lucide-react";
 
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
@@ -13,7 +14,7 @@ export default function Architecture() {
           </span>
           <h1 className="text-4xl md:text-5xl font-bold mb-5 text-gray-950">Enterprise-Grade Architecture</h1>
           <p className="text-lg text-gray-500 leading-relaxed">
-            A sovereign, secure, and infinitely scalable technology stack designed to extend — not replace — your core enterprise systems.
+            A sovereign, secure, and infinitely scalable technology stack designed to extend — not replace — your core enterprise systems. The same four layers power both our AI-native applications and our AI Agent fleet.
           </p>
         </div>
 
@@ -25,15 +26,15 @@ export default function Architecture() {
                 label: "Enterprise Intelligence Layer",
                 sub: "LLM Orchestration & Logic",
                 icon: <Cpu className="w-5 h-5" />,
-                desc: "LLM orchestration, predictive simulations, and autonomous decision-making engines. This is where business logic becomes intelligent. Models deployed locally in your cloud tenant.",
+                desc: "LLM orchestration, predictive simulations, and autonomous decision-making engines. This is where business logic becomes intelligent — powering both application UIs and the continuous reasoning and action loops that drive our AI Agents. Models deployed locally in your cloud tenant.",
                 highlight: true,
               },
               {
                 num: "3",
-                label: "AI Native Applications",
-                sub: "User-Facing Contextual UI",
+                label: "AI Native Applications & Agents",
+                sub: "User-Facing UIs · Autonomous Agent Runtimes",
                 icon: <Layers className="w-5 h-5" />,
-                desc: "The user-facing products (Verionai Connect, Trade Scheme, DataWorks, Flow, ServiceWorks). Highly optimized, responsive UIs built for high user adoption. Delivered via web or embedded in Teams/Outlook.",
+                desc: "Two delivery vehicles built at this layer: (1) User-facing AI applications — Verionai Connect, Trade Scheme, DataWorks, Flow, and ServiceWorks — highly optimized, responsive UIs delivered via web or embedded in Teams/Outlook; and (2) Purpose-built AI Agents (CX, IT Ops, Sec Ops, OCR, Marketing) — autonomous workers that operate continuously within your enterprise stack, acting on data without requiring a human in the loop.",
                 highlight: false,
               },
               {
@@ -41,7 +42,7 @@ export default function Architecture() {
                 label: "VerionAI Integration Layer",
                 sub: "Secure Gateways & Data Sync",
                 icon: <Workflow className="w-5 h-5" />,
-                desc: "Secure API gateways, webhooks, and event streaming architectures that bidirectionally sync data without overloading core ERPs. Handles rate limiting and intelligent caching.",
+                desc: "Secure API gateways, webhooks, and event streaming architectures that bidirectionally sync data without overloading core ERPs. Handles rate limiting and intelligent caching. Also provides the runtime connectivity agents need to read signals, execute actions, and report outcomes across enterprise systems.",
                 highlight: false,
               },
               {
@@ -80,8 +81,71 @@ export default function Architecture() {
           </div>
         </div>
 
+        {/* Two Delivery Models callout */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <div className="mb-6">
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-3 block" style={{ color: purple }}>
+              Two Delivery Models, One Stack
+            </span>
+            <p className="text-gray-500 text-sm max-w-xl">
+              The same four-layer architecture underpins both ways VerionAI delivers value — choose the model that fits your challenge, or combine both.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="enterprise-card p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-md border border-gray-200 bg-gray-50 flex items-center justify-center">
+                  <LayoutTemplate className="w-4 h-4 text-gray-400" />
+                </div>
+                <h3 className="text-base font-bold text-gray-900">AI-Native Applications</h3>
+              </div>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5">
+                Full-featured, user-facing software products that replace or extend specific enterprise workflows. Highly customized to your business logic and brand, deployed in days.
+              </p>
+              <ul className="space-y-1.5">
+                {["Verionai Connect (HR & Engagement)", "Verion Trade Scheme (Incentives)", "Verion DataWorks (Data Governance)", "Verion Flow (Approvals)", "Verion ServiceWorks (ITSM)"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: pink }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/solutions">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-5 transition-colors" style={{ color: pink }}>
+                  View all modules →
+                </span>
+              </Link>
+            </div>
+
+            <div className="enterprise-card p-7" style={{ borderColor: `${pink}25`, background: `${pink}04` }}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-md border flex items-center justify-center" style={{ borderColor: `${pink}30`, backgroundColor: `${pink}08`, color: pink }}>
+                  <Bot className="w-4 h-4" />
+                </div>
+                <h3 className="text-base font-bold text-gray-900">AI Agents as a Service</h3>
+              </div>
+              <p className="text-sm text-gray-500 leading-relaxed mb-5">
+                Autonomous agents deployed into specific operational functions. They monitor, reason, and act continuously — integrating with your existing tools without requiring a new application layer.
+              </p>
+              <ul className="space-y-1.5">
+                {["CX Agent (Customer Support)", "IT Ops Agent (Incident Management)", "Sec Ops Agent (Governance & Compliance)", "OCR Agent (Document Processing)", "Marketing Agent (Campaigns & Content)"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
+                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: pink }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/solutions#agent-as-a-service">
+                <span className="inline-flex items-center gap-1 text-xs font-semibold mt-5 transition-colors" style={{ color: pink }}>
+                  Explore AI Agents →
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Security */}
-        <div className="mt-28 pt-16 border-t border-gray-100">
+        <div className="mt-20 pt-16 border-t border-gray-100">
           <div className="mb-10">
             <span className="text-xs font-semibold tracking-[0.2em] uppercase mb-3 block" style={{ color: purple }}>
               Security & Governance

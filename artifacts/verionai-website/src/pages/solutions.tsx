@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Users, TrendingUp, Database, GitMerge, HeadphonesIcon, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Users, TrendingUp, Database, GitMerge, HeadphonesIcon, ArrowRight, Sparkles,
+  MessageSquare, Monitor, Shield, FileText, Megaphone, Bot,
+} from "lucide-react";
 
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
@@ -29,6 +32,15 @@ interface Module {
   keyFeatureDesc: string;
   features: string[];
   productPage?: string;
+}
+
+interface Agent {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  focus: string;
+  desc: string;
+  capabilities: string[];
 }
 
 const modules: Module[] = [
@@ -106,6 +118,74 @@ const modules: Module[] = [
       "AI ticket triage & smart routing",
       "SLA tracking & real-time analytics",
       "Dynamic knowledge base generation",
+    ],
+  },
+];
+
+const agents: Agent[] = [
+  {
+    id: "cx-agent",
+    name: "CX Agent",
+    icon: <MessageSquare className="w-5 h-5" />,
+    focus: "Customer Experience & Support",
+    desc: "24/7 AI-powered chat and voice support that instantly resolves everyday customer inquiries — with the tone and knowledge of your best human agent. Seamlessly escalates complex cases while maintaining full conversation context.",
+    capabilities: [
+      "Omnichannel chat & voice support",
+      "Natural language understanding",
+      "Intelligent human escalation",
+      "Multilingual, always-on operation",
+    ],
+  },
+  {
+    id: "it-ops-agent",
+    name: "IT Ops Agent",
+    icon: <Monitor className="w-5 h-5" />,
+    focus: "IT Operations & Incident Management",
+    desc: "An autonomous agent that monitors your IT environment in real time, triages incidents across multiple systems simultaneously, and resolves common issues before they impact end users — acting as a 10× multiplier for your SRE team.",
+    capabilities: [
+      "Real-time infrastructure monitoring",
+      "Parallel incident triage & resolution",
+      "MTTR reduction & root-cause analysis",
+      "Continuous self-learning from past incidents",
+    ],
+  },
+  {
+    id: "sec-ops-agent",
+    name: "Sec Ops Agent",
+    icon: <Shield className="w-5 h-5" />,
+    focus: "Security, Governance & Compliance",
+    desc: "Monitors all AI tool usage across your organisation, detects policy violations, protects sensitive data from exposure, and ensures your GenAI adoption stays within enterprise compliance boundaries — all in one autonomous agent.",
+    capabilities: [
+      "AI tool usage visibility & control",
+      "Sensitive data leak detection",
+      "Compliance policy enforcement",
+      "Risk scoring & audit reporting",
+    ],
+  },
+  {
+    id: "ocr-agent",
+    name: "OCR Agent",
+    icon: <FileText className="w-5 h-5" />,
+    focus: "Intelligent Document Processing",
+    desc: "Goes far beyond simple text extraction — it understands document structure, detects patterns, validates data against business rules, and pushes clean, structured output directly into your downstream workflows. Eliminate manual data entry entirely.",
+    capabilities: [
+      "Structured data extraction & validation",
+      "Multi-format document ingestion",
+      "Workflow integration (ERP, CRM, RPA)",
+      "Exception handling & human-in-loop routing",
+    ],
+  },
+  {
+    id: "marketing-agent",
+    name: "Marketing Agent",
+    icon: <Megaphone className="w-5 h-5" />,
+    focus: "Marketing Automation & Growth",
+    desc: "An always-on marketing team member that generates campaign content, personalises outreach, identifies trending topics, and optimises live campaigns in real time — all tuned to your brand voice and business objectives.",
+    capabilities: [
+      "AI content creation (posts, emails, newsletters)",
+      "Lead generation & qualification",
+      "Campaign performance optimisation",
+      "Brand-voice-tuned output",
     ],
   },
 ];
@@ -210,11 +290,11 @@ export default function Solutions() {
               <span style={{ color: pink }}>Autonomous Enterprise</span>
             </h1>
             <p className="text-lg text-gray-500 leading-relaxed max-w-2xl">
-              Five pre-architected AI modules that layer over your existing enterprise stack — zero ERP disruption, deployed in days.
+              Five pre-architected AI application modules plus a fleet of purpose-built AI Agents — all layering over your existing enterprise stack with zero ERP disruption, deployed in days.
             </p>
           </div>
 
-          {/* Module nav pills */}
+          {/* Nav pills */}
           <div className="flex flex-wrap gap-3 mt-10">
             {modules.map((m) => (
               m.productPage ? (
@@ -233,6 +313,12 @@ export default function Solutions() {
                 </a>
               )
             ))}
+            <a href="#agent-as-a-service">
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-medium transition-colors cursor-pointer" style={{ borderColor: `${pink}40`, backgroundColor: `${pink}06`, color: pink }}>
+                <Bot className="w-4 h-4" />
+                AI Agents
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -351,6 +437,89 @@ export default function Solutions() {
         ))}
       </div>
 
+      {/* Agent-as-a-Service Section */}
+      <section id="agent-as-a-service" className="py-24 border-t border-gray-100 scroll-mt-20" style={{ background: "linear-gradient(180deg, #fafafa 0%, #fff 100%)" }}>
+        <div className="container mx-auto px-4 md:px-6">
+
+          {/* Section header */}
+          <div className="max-w-3xl mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border mb-5 text-xs font-semibold" style={{ borderColor: `${pink}30`, backgroundColor: `${pink}06`, color: pink }}>
+              <Bot className="w-3.5 h-3.5" />
+              Agent-as-a-Service
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-950 leading-tight">
+              Purpose-Built AI Agents,<br />
+              <span style={{ color: pink }}>Ready to Deploy</span>
+            </h2>
+            <p className="text-lg text-gray-500 leading-relaxed max-w-2xl">
+              Not every problem needs a full application. Our AI Agents are autonomous workers you deploy directly into your operations — integrating with your existing systems to automate processes, resolve issues, and deliver outcomes around the clock.
+            </p>
+          </div>
+
+          {/* Agent cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {agents.map((agent, index) => (
+              <motion.div
+                key={agent.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: index * 0.07 }}
+                className="rounded-xl border border-gray-200 bg-white p-7 flex flex-col hover:border-pink-200 hover:shadow-md transition-all duration-200"
+              >
+                <div className="flex items-start justify-between mb-5">
+                  <div
+                    className="w-10 h-10 rounded-md border flex items-center justify-center shrink-0"
+                    style={{ borderColor: `${pink}30`, backgroundColor: `${pink}08`, color: pink }}
+                  >
+                    {agent.icon}
+                  </div>
+                  <span className="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style={{ color: purple, background: "hsl(262 83% 55% / 0.08)" }}>
+                    {agent.focus.split(" ")[0]}
+                  </span>
+                </div>
+
+                <h3 className="text-lg font-bold text-gray-950 mb-1">{agent.name}</h3>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: purple }}>{agent.focus}</p>
+                <p className="text-sm text-gray-500 leading-relaxed flex-grow mb-6">{agent.desc}</p>
+
+                <ul className="space-y-1.5 mb-6">
+                  {agent.capabilities.map((cap, i) => (
+                    <li key={i} className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: pink }} />
+                      <span className="text-xs text-gray-500">{cap}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link href="/contact">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors" style={{ color: pink }}>
+                    Talk to Us <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Agent CTA strip */}
+          <div className="mt-14 rounded-xl border border-gray-200 bg-white p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-1" style={{ color: purple }}>Get Started</p>
+              <p className="text-lg font-bold text-gray-950">Not sure which agent fits your problem?</p>
+              <p className="text-sm text-gray-500 mt-1">Our team will map your operational challenge to the right agent — or a combination of several.</p>
+            </div>
+            <Link href="/contact">
+              <Button
+                className="rounded-md text-white font-semibold text-sm h-10 px-7 shrink-0"
+                style={{ backgroundColor: pink }}
+              >
+                Book a Discovery Call
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 border-t border-gray-100 bg-white">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-2xl">
@@ -358,10 +527,10 @@ export default function Solutions() {
             Deploy the Suite
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-5 text-gray-950">
-            Deploy one module. Or all five.
+            Deploy one module. An AI Agent. Or the entire suite.
           </h2>
           <p className="text-gray-500 mb-9 leading-relaxed">
-            Every Verion module is independently deployable and integrates with your existing enterprise stack. Start with the highest-impact area and expand from there.
+            Every Verion module and AI Agent is independently deployable and integrates with your existing enterprise stack. Start with the highest-impact area and expand from there.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/contact">

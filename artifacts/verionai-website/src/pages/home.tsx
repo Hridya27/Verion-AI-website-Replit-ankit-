@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Box, Database, Server, LayoutTemplate, Briefcase, FlaskConical, Factory, Building2, Layers, Cpu, Workflow, ShieldCheck, Lock, Globe, Download } from "lucide-react";
+import { ArrowRight, Box, Database, Server, LayoutTemplate, Briefcase, FlaskConical, Factory, Building2, Layers, Cpu, Workflow, ShieldCheck, Lock, Globe, Download, Bot } from "lucide-react";
 
 const pink = "#D4196A";
 const purple = "hsl(262 83% 55%)";
@@ -109,6 +109,55 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* What We Deliver */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-10">
+            <span className="text-xs font-semibold tracking-[0.2em] uppercase" style={{ color: purple }}>
+              What We Deliver
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
+            <Link href="/solutions">
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="enterprise-card p-7 cursor-pointer group transition-all duration-200 hover:border-pink-200"
+              >
+                <div className="w-10 h-10 rounded-md border border-gray-200 bg-gray-50 flex items-center justify-center mb-5 text-gray-400 group-hover:bg-pink-50 group-hover:border-pink-200 transition-colors">
+                  <LayoutTemplate className="w-5 h-5 group-hover:text-pink-500 transition-colors" />
+                </div>
+                <h3 className="text-base font-bold text-gray-900 mb-2">AI-Native Application Suite</h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                  Five pre-architected products — Connect, Trade Scheme, DataWorks, Flow, and ServiceWorks — each purpose-built for a specific enterprise function and deployed in days.
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors" style={{ color: pink }}>
+                  Explore modules <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </motion.div>
+            </Link>
+
+            <Link href="/solutions#agent-as-a-service">
+              <motion.div
+                whileHover={{ y: -3 }}
+                className="enterprise-card p-7 cursor-pointer group transition-all duration-200"
+                style={{ borderColor: `${pink}20`, background: `${pink}03` }}
+              >
+                <div className="w-10 h-10 rounded-md border flex items-center justify-center mb-5 transition-colors" style={{ borderColor: `${pink}30`, backgroundColor: `${pink}08`, color: pink }}>
+                  <Bot className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-gray-900 mb-2">AI Agents as a Service</h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-4">
+                  Deploy autonomous AI Agents — CX, IT Ops, Sec Ops, OCR, and Marketing — directly into your operations. They run 24/7, integrate with your existing tools, and get smarter with every interaction.
+                </p>
+                <span className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors" style={{ color: pink }}>
+                  Meet the agents <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       </section>
 
