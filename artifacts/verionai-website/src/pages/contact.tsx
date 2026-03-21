@@ -32,18 +32,41 @@ export default function Contact() {
     defaultValues: { name: "", company: "", email: "", phone: "", message: "", intent: "discovery" },
   });
 
+  const encode = (data: Record<string, string>) =>
+    Object.keys(data)
+      .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k] ?? ""))
+      .join("&");
+
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    const subject = encodeURIComponent(
-      `[VerionAI] ${data.intent === "demo" ? "Demo Request" : "Discovery Call"} — ${data.company}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nCompany: ${data.company}\nEmail: ${data.email}\nPhone: ${data.phone || "N/A"}\n\nMessage:\n${data.message}`
-    );
-    window.location.href = `mailto:info@verionai.in?subject=${subject}&body=${body}`;
-    setIsSubmitting(false);
-    toast({ title: "Opening your email client…", description: "Your details are pre-filled. Hit Send to reach our team." });
-    form.reset();
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({
+          "form-name": "contact",
+          name: data.name,
+          company: data.company,
+          email: data.email,
+          phone: data.phone ?? "",
+          message: data.message,
+          intent: data.intent,
+        }),
+      });
+      toast({
+        title: "Enquiry sent!",
+        description: "We've received your message and will be in touch within 1 business day.",
+      });
+      form.reset();
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description: "Please email us directly at info@verionai.in",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
