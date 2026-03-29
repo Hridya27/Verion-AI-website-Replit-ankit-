@@ -40,17 +40,26 @@ const OUT_DIR = join(__dirname, "..", "brand-identity");
 mkdirSync(OUT_DIR, { recursive: true });
 
 // ─── Design tokens — exact values extracted from source, confirmed by verify-brand-tokens.js
-const PINK    = "D4196A";   // home.tsx / footer.tsx: "#D4196A"  =  hsl(328 82% 52%) = --primary
-const PURPLE  = "7C3AED";   // home.tsx: "hsl(262 83% 55%)"  — computed to closest hex for swatch rendering
-const BLACK   = "111827";   // footer.tsx: "#111827"
-const GRAY400 = "9CA3AF";   // Tailwind gray-400 (used for captions in source)
-const GRAY500 = "6B7280";   // Tailwind gray-500 (used for body text in source)
+// ── Pink note ──────────────────────────────────────────────────────────────
+// Two pink values coexist in the codebase:
+//   A) JS inline constant: const pink = "#D4196A"  (home.tsx, footer.tsx, solutions.tsx)
+//      Used for ALL custom-branded elements (CTAs, emphasis text, bullet dots, logo).
+//      This is the authoritative brand pink.
+//   B) CSS custom property: --primary: hsl(328 82% 52%) → computed #E9208B
+//      Used only by Shadcn UI system components (not visible in custom-built sections).
+// Brand identity = #D4196A. Do NOT use #E9208B in new branded assets.
+
+const PINK    = "D4196A";   // const pink = "#D4196A" in home.tsx / footer.tsx (AUTHORITATIVE brand pink)
+const PURPLE  = "732DEB";   // hsl(262 83% 55%) computed exactly (verified by verify-brand-tokens.js)
+const BLACK   = "111827";   // const BLACK = "#111827" in footer.tsx
+const GRAY400 = "9CA3AF";   // Tailwind gray-400
+const GRAY500 = "6B7280";   // Tailwind gray-500 / --muted-foreground
 const GRAY700 = "374151";   // Tailwind gray-700 (nav link colour)
-const GRAY200 = "E5E7EB";   // Tailwind gray-200 = --border ≈ hsl(220 13% 91%)
+const GRAY200 = "E5E7EB";   // Tailwind gray-200 = --border: hsl(220 13% 91%) computed
 const GRAY300 = "D1D5DB";   // Tailwind gray-300 (secondary button border)
-const WHITE   = "FFFFFF";   // --background: 0 0% 100%
-const CARD_BG = "FAFAFA";   // --card: hsl(0 0% 98%) = #FAFAFA
-const DARK    = "0A0A0A";   // Verion Engage page dark background
+const WHITE   = "FFFFFF";   // --background: hsl(0 0% 100%)
+const CARD_BG = "FAFAFA";   // --card: hsl(0 0% 98%) computed
+const DARK    = "0A0A0A";   // Verion Engage page dark background (hardcoded in page)
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const thinBorder      = { style: BorderStyle.SINGLE, size: 4, color: "E5E7EB" };
@@ -217,19 +226,20 @@ const doc = new Document({
       eyebrow("03"),
       h1("Color Palette"),
       body("All values extracted and verified from index.css custom properties and page-level JS constants."),
+      body("NOTE — Two pink values exist in the codebase. The authoritative brand pink is the JS inline constant #D4196A (used in all custom-built branded elements: logo, CTAs, emphasis). A separate CSS variable --primary: hsl(328 82% 52%) = #E9208B exists for the Shadcn UI component system only — it is NOT the visual brand pink and should not be used in new branded assets.", { color: "92400E" }),
       new Paragraph({ text: "", spacing: { before: 100 } }),
       new Table({
         width: { size: 100, type: WidthType.PERCENTAGE },
         rows: [
           tHead(["Swatch", "Name", "CSS / JS Value", "Usage"], [10, 22, 28, 40]),
-          swatchRow("D4196A", "VerionAI Pink",        "#D4196A  (--primary: hsl 328 82% 52%)",    "Primary brand. CTA buttons, logo, emphasis text, active states, bullet dots"),
-          swatchRow("7C3AED", "Brand Purple",          "hsl(262 83% 55%)  (--accent: 262 83% 58%)", "Eyebrow / category labels ONLY — always UPPERCASE + wide tracking. Never a CTA colour."),
+          swatchRow("D4196A", "VerionAI Pink",        "JS const: #D4196A  (authoritative brand pink — see note below)",    "Primary brand. CTA buttons, logo, emphasis text, active states, bullet dots"),
+          swatchRow("732DEB", "Brand Purple",          "JS const: hsl(262 83% 55%) = #732DEB (exact)", "Eyebrow / category labels ONLY — always UPPERCASE + wide tracking. Never a CTA colour."),
           swatchRow("111827", "Near Black",            "#111827  (footer.tsx: const BLACK)",         "All headings, nav links, logo 'ai' on light backgrounds, dark text"),
           swatchRow("6B7280", "Body Gray",             "Tailwind gray-500  #6B7280",                 "Body text, descriptions. CSS: --muted-foreground ≈ hsl(220 9% 46%)"),
           swatchRow("9CA3AF", "Muted Gray",            "Tailwind gray-400  #9CA3AF",                 "Captions, timestamps, meta text, placeholder text"),
           swatchRow("E5E7EB", "Border Gray",           "--border: hsl(220 13% 91%)  Tailwind gray-200", "Card borders (border-gray-200), dividers, hairlines"),
           swatchRow("FAFAFA", "Card Surface",          "--card: hsl(0 0% 98%)",                      "Card backgrounds (CSS variable)"),
-          swatchRow("F5F6F8", "Section Alt",           ".section-alt: hsl(220 14% 97%)",             "Alternate section backgrounds"),
+          swatchRow("F6F7F8", "Section Alt",           ".section-alt: hsl(220 14% 97%) = #F6F7F8 (exact)", "Alternate section backgrounds"),
           swatchRow("FFFFFF", "White",                 "--background: hsl(0 0% 100%)",               "Primary page background. Button text on pink CTAs"),
           swatchRow("0A0A0A", "Dark Surface",          "Verion Engage page only — hardcoded",         "Dark product demo surfaces only — not for general use"),
         ],
