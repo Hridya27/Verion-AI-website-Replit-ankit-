@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "41PudT68I4U_rsdhFXpm2"
+uri = "file://brand-identity/VerionAI-Brand-Identity.docx"
+type = "word_document"
+title = "VerionAI Brand Identity Guidelines"
