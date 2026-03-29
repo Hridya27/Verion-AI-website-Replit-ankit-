@@ -49,7 +49,7 @@ const modules: Module[] = [
     name: "Verionai Connect",
     icon: <Users className="w-5 h-5" />,
     focus: "Employee Experience & HR",
-    desc: "Transform hire-to-retire workflows with gamified engagement, intelligent resource matching, and unified employee intelligence on top of your existing HRIS.",
+    desc: "The all-in-one platform for professional services firms — talent management, resource allocation, recognition, and AI-driven insights across every service line and practice area.",
     keyFeatureName: "Resource Intelligence",
     keyFeatureDesc: "AI-driven skill mapping and gamified engagement that surfaces the right people for every project — automatically.",
     features: [
