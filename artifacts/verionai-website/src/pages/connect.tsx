@@ -164,7 +164,7 @@ const ENTERPRISE_PILLARS = [
   },
 ];
 
-const NAV_LINKS = ["Features", "Capabilities", "Modules", "Why Connect"];
+const NAV_LINKS = ["Features", "Capabilities", "Modules", "Why Engage"];
 
 const colorMap: Record<string, { bg: string; icon: string; border: string; badge: string }> = {
   blue: { bg: "bg-blue-50", icon: "text-blue-600", border: "border-blue-100", badge: "bg-blue-100 text-blue-700" },
@@ -254,8 +254,7 @@ export default function ConnectPage() {
             {/* Product name — primary hero */}
             <h1 className="font-extrabold leading-none tracking-tight" style={{ fontSize: "clamp(2rem, 5.5vw, 4rem)", letterSpacing: "-0.03em" }}>
               <span style={{ color: PINK }}>Verion</span>
-              <span className="text-white">ai</span>
-              <span className="text-white"> Connect</span>
+              <span className="text-white"> Engage</span>
             </h1>
 
             {/* Tagline — secondary, visually smaller */}
@@ -264,7 +263,7 @@ export default function ConnectPage() {
             </p>
 
             <p className="mt-3 text-sm sm:text-base font-medium tracking-widest uppercase" style={{ color: PINK, opacity: 0.8 }}>
-              Connect &nbsp;·&nbsp; Recognize &nbsp;·&nbsp; Succeed
+              Engage &nbsp;·&nbsp; Recognize &nbsp;·&nbsp; Succeed
             </p>
 
             <p className="mt-7 text-base sm:text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
@@ -427,7 +426,7 @@ export default function ConnectPage() {
       </section>
 
       <section
-        id="why-connect"
+        id="why-engage"
         className="py-20 sm:py-28 relative overflow-hidden scroll-mt-20"
         style={{ background: "linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%)" }}
       >
