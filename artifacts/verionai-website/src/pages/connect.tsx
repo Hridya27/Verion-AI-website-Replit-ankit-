@@ -440,7 +440,7 @@ export default function ConnectPage() {
               Built for Enterprise. Designed for People.
             </h2>
             <p className="mt-4 text-lg text-slate-300">
-              Four pillars that make Verionai Connect the platform of choice for professional services organisations.
+              Four pillars that make Verion Engage the platform of choice for professional services organisations.
             </p>
           </div>
 
@@ -474,7 +474,7 @@ export default function ConnectPage() {
                 Ready to Transform Your Talent Operations?
               </h2>
               <p className="text-blue-100 text-base sm:text-lg max-w-xl mx-auto mb-8">
-                Join leading professional services firms using Verionai Connect to manage people, resources,
+                Join leading professional services firms using Verion Engage to manage people, resources,
                 and performance — across every practice and service line.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -504,7 +504,7 @@ export default function ConnectPage() {
             <div className="flex items-center gap-3">
               <VerionAILogo dark />
               <span className="text-slate-500 text-sm">
-                Verionai Connect — Enterprise Talent Platform
+                Verion Engage — Enterprise Talent Platform
               </span>
             </div>
             <div className="flex flex-col md:flex-row items-center gap-4 text-slate-500 text-sm">

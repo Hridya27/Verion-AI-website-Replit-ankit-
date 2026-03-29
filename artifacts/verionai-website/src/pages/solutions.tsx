@@ -11,11 +11,11 @@ const purple = "hsl(262 83% 55%)";
 const black = "#111827";
 
 function StyledModuleName({ name, className }: { name: string; className?: string }) {
-  if (name === "Verionai Connect") {
+  if (name === "Verion Engage") {
     return (
       <span className={className}>
         <span style={{ color: pink }}>Verion</span>
-        <span style={{ color: black }}>ai Connect</span>
+        <span style={{ color: black }}> Engage</span>
       </span>
     );
   }
@@ -45,8 +45,8 @@ interface Agent {
 
 const modules: Module[] = [
   {
-    id: "verionai-connect",
-    name: "Verionai Connect",
+    id: "verion-engage",
+    name: "Verion Engage",
     icon: <Users className="w-5 h-5" />,
     focus: "Employee Experience & HR",
     desc: "The all-in-one platform for professional services firms — talent management, resource allocation, recognition, and AI-driven insights across every service line and practice area.",
@@ -424,7 +424,7 @@ export default function Solutions() {
                       <span className="text-xs text-gray-400">Live product</span>
                       <span className="text-xs text-gray-300">→</span>
                       <span className="text-xs font-medium" style={{ color: pink }}>
-                        Verionai Connect
+                        Verion Engage
                       </span>
                     </div>
                   )}

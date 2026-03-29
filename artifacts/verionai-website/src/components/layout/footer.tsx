@@ -62,7 +62,7 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-xs text-foreground mb-5 uppercase tracking-widest">Solutions</h4>
             <ul className="space-y-3 text-sm">
-              <li><Link href="/connect" className="text-muted-foreground hover:text-foreground transition-colors">Verionai Connect</Link></li>
+              <li><Link href="/connect" className="text-muted-foreground hover:text-foreground transition-colors">Verion Engage</Link></li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion Trade Scheme</Link></li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion DataWorks</Link></li>
               <li><Link href="/solutions" className="text-muted-foreground hover:text-foreground transition-colors">Verion Flow</Link></li>

@@ -34,7 +34,7 @@ export default function Architecture() {
                 label: "AI Native Applications & Agents",
                 sub: "User-Facing UIs · Autonomous Agent Runtimes",
                 icon: <Layers className="w-5 h-5" />,
-                desc: "Two delivery vehicles built at this layer: (1) User-facing AI applications — Verionai Connect, Trade Scheme, DataWorks, Flow, and ServiceWorks — highly optimized, responsive UIs delivered via web or embedded in Teams/Outlook; and (2) Purpose-built AI Agents (CX, IT Ops, Sec Ops, OCR, Marketing) — autonomous workers that operate continuously within your enterprise stack, acting on data without requiring a human in the loop.",
+                desc: "Two delivery vehicles built at this layer: (1) User-facing AI applications — Verion Engage, Trade Scheme, DataWorks, Flow, and ServiceWorks — highly optimized, responsive UIs delivered via web or embedded in Teams/Outlook; and (2) Purpose-built AI Agents (CX, IT Ops, Sec Ops, OCR, Marketing) — autonomous workers that operate continuously within your enterprise stack, acting on data without requiring a human in the loop.",
                 highlight: false,
               },
               {
@@ -103,7 +103,7 @@ export default function Architecture() {
                 Full-featured, user-facing software products that replace or extend specific enterprise workflows. Highly customized to your business logic and brand, deployed in days.
               </p>
               <ul className="space-y-1.5">
-                {["Verionai Connect (HR & Engagement)", "Verion Trade Scheme (Incentives)", "Verion DataWorks (Data Governance)", "Verion Flow (Approvals)", "Verion ServiceWorks (ITSM)"].map((item, i) => (
+                {["Verion Engage (HR & Engagement)", "Verion Trade Scheme (Incentives)", "Verion DataWorks (Data Governance)", "Verion Flow (Approvals)", "Verion ServiceWorks (ITSM)"].map((item, i) => (
                   <li key={i} className="flex items-center gap-2 text-xs text-gray-500">
                     <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: pink }} />
                     {item}

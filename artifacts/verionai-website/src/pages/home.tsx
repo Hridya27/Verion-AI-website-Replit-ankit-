@@ -336,7 +336,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { name: "Verionai Connect", category: "HR & Engagement", desc: "Employee recognition, gamification, and resource allocation workflows.", href: "/connect" },
+              { name: "Verion Engage", category: "HR & Engagement", desc: "Employee recognition, gamification, and resource allocation workflows.", href: "/connect" },
               { name: "Verion Trade Scheme", category: "Sales & Dealer Ops", desc: "Target schemes, AI simulation, and automated incentive payouts.", href: "/solutions" },
               { name: "Verion DataWorks", category: "Data Governance", desc: "Automated ETL, master data harmonization, and AI data cleansing.", href: "/solutions" },
               { name: "Verion Flow", category: "Workflow Automation", desc: "Multi-level approvals, visual builders, and enterprise integration.", href: "/solutions" },
