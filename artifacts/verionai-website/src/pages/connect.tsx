@@ -102,8 +102,8 @@ const UNIQUE_FEATURES = [
   },
   {
     icon: Award,
-    title: "Rewards & Recognition (HI-PIECE)",
-    description: "HI-PIECE nomination system with award categories, impact ratings, director review cycles, awards gallery, and weekly R&R reminder campaigns.",
+    title: "Rewards & Recognition",
+    description: "Structured nomination system with award categories, impact ratings, director review cycles, awards gallery, and weekly R&R reminder campaigns.",
     gradient: "from-amber-500 to-orange-500",
   },
   {
