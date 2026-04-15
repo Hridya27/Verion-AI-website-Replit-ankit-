@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, ArrowLeft, AlertTriangle, Info, XCircle } from "lucide-react";
@@ -122,6 +122,12 @@ function Body({ children }: { children: React.ReactNode }) {
 
 export default function TermsOfUsePage() {
   const [tocOpen, setTocOpen] = useState(false);
+
+  useEffect(() => {
+    const prev = document.title;
+    document.title = "Verion Engage — Terms of Use | VerionAI";
+    return () => { document.title = prev; };
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -666,21 +672,30 @@ export default function TermsOfUsePage() {
       </div>
 
       {/* Page footer */}
-      <footer className="border-t border-gray-100 bg-gray-50 mt-10 py-8">
+      <footer className="border-t border-gray-100 bg-gray-50 mt-10 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-            <div className="flex items-center gap-3">
-              <VerionAILogo />
-              <span>·</span>
-              <span>Verion Engage Terms of Use — Version {VERSION}</span>
+          <div className="flex flex-col md:flex-row gap-8 justify-between">
+            <div>
+              <div className="mb-3">
+                <VerionAILogo />
+              </div>
+              <p className="text-xs text-gray-500 mt-2">Verion Engage Terms of Use — Version {VERSION}</p>
+              <p className="text-xs text-gray-400 mt-1">Last Updated: {LAST_UPDATED}</p>
             </div>
-            <div className="flex gap-6">
-              <span>© {new Date().getFullYear()} Verion AI Private Limited</span>
-              <span>·</span>
-              <span>Last Updated: {LAST_UPDATED}</span>
-              <span>·</span>
-              <a href="mailto:info@verionai.in" className="hover:text-gray-600 transition-colors">info@verionai.in</a>
+            <div className="text-xs text-gray-500 space-y-1">
+              <p className="font-semibold text-gray-700">Verion AI Private Limited</p>
+              <p>346, 219 2F, ILD Trade Centre, Sector 47, Sohna Road</p>
+              <p>Gurugram – 122018, Haryana, India</p>
+              <p className="mt-2">CIN: U62090HR2026PTC142622</p>
+              <p>
+                <a href="mailto:info@verionai.in" className="hover:text-gray-700 transition-colors">info@verionai.in</a>
+                {" · "}
+                <a href="https://verionai.in" target="_blank" rel="noopener noreferrer" className="hover:text-gray-700 transition-colors">verionai.in</a>
+              </p>
             </div>
+          </div>
+          <div className="mt-8 pt-6 border-t border-gray-200 text-xs text-gray-400">
+            © {new Date().getFullYear()} Verion AI Private Limited. All rights reserved.
           </div>
         </div>
       </footer>
