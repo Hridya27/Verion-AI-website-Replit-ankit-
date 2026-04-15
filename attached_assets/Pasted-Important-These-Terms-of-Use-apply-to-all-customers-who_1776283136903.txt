@@ -1,0 +1,227 @@
+Important: These Terms of Use apply to all customers who have signed a Verion Engage Pilot Agreement with Verion AI Private Limited. By signing the Pilot Agreement, you confirm that you have read and accepted these Terms in full. These Terms are incorporated into the Pilot Agreement by reference.
+Section 01
+About These Terms
+These Terms of Use ("Terms") govern your organisation's access to and use of Verion Engage, a cloud-based enterprise platform developed and operated by Verion AI Private Limited ("VerionAI", "we", "us"), a company incorporated under the Companies Act, 2013 with CIN U62090HR2026PTC142622, having its registered office at 346, 219 2F, ILD Trade Centre, Sector 47, Sohna Road, Gurugram – 122018, Haryana, India.
+
+These Terms apply to the organisation that has executed a Pilot Agreement with VerionAI ("Customer", "you"). They apply from the Effective Date stated in the Pilot Agreement and continue for the duration of the Pilot Period and any post-conversion subscription.
+
+If there is any conflict between these Terms and the signed Pilot Agreement, the Pilot Agreement shall prevail.
+
+Section 02
+Definitions
+In these Terms, the following words have the meanings given below:
+
+AI Tokens — Units of AI processing capacity allocated to Customer as set out in Schedule 1 of the Pilot Agreement.
+Authorised Users — Employees of Customer granted access to the platform up to the User Limit.
+Cloud Services — The Verion Engage platform and all modules provided by VerionAI via the internet.
+Customer Data — All data, content, and information submitted to the platform by Customer or Authorised Users.
+Hosting Provider — The third-party infrastructure provider(s) on whose servers the platform operates (currently Replit for application hosting and Neon for database hosting).
+Pilot Agreement — The signed agreement between VerionAI and Customer to which these Terms are attached as Annexure A.
+Pilot Period — The 12-month pilot subscription period stated in the Pilot Agreement.
+User Limit — The maximum number of Authorised Users permitted as stated in Schedule 1.
+Section 03
+Licence Grant
+Subject to your compliance with these Terms and payment of all applicable fees, VerionAI grants you a limited, non-exclusive, non-transferable, non-sublicensable licence to access and use the Cloud Services solely for your own internal business purposes during the Pilot Period.
+
+This is a licence to access the Cloud Services. It is not a sale of software and does not transfer any intellectual property rights to you. You obtain no ownership interest in the platform or any underlying technology.
+
+The licence covers only the modules and service tiers set out in Schedule 1 of your Pilot Agreement.
+
+Section 04
+Permitted Use and Restrictions
+What you may do
+You may access and use the Cloud Services only: (a) for your own internal business operations; (b) through Authorised Users up to the User Limit; and (c) in compliance with these Terms and applicable law.
+
+What you must not do
+You shall not, and shall ensure Authorised Users do not:
+
+Sub-license, sell, resell, transfer, assign, or distribute the Cloud Services to any third party
+Reverse engineer, decompile, disassemble, or attempt to derive the source code of the platform
+Use the platform to build a competitive product or service
+Benchmark the platform against a competitive product without VerionAI's prior written consent
+Permit any third party outside your organisation to access the platform
+Exceed the User Limit stated in Schedule 1
+Circumvent, disable, or interfere with any security or access control feature of the platform
+Use automated bots, scripts, or tools to systematically extract content from the platform
+User credentials
+You are solely responsible for maintaining the confidentiality of all usernames, passwords, and access credentials. Notify VerionAI immediately at info@verionai.in if you suspect any unauthorised access to your account.
+
+Section 05
+Authorised Users and Audit Rights
+User limit
+The maximum number of Authorised Users is the User Limit stated in Schedule 1. VerionAI monitors active user accounts through platform logs. If platform records indicate your User Limit has been exceeded, VerionAI will notify you in writing and you must within 30 days either reduce users to the limit or execute a written amendment and pay additional fees retroactively.
+
+Remote compliance audit
+VerionAI may conduct a remote compliance audit via platform access logs and usage records once per rolling 12-month period, with 14 days' written notice. Audits are conducted at no cost to either party. If an audit reveals excess users or material breach, you shall pay fees for all excess use plus a 10% administration uplift on underpaid amounts.
+
+Section 06
+AI Tokens and Fair Use
+Annual allocation
+Each year of your subscription, you receive an Annual Token Allocation as specified in Schedule 1 of your Pilot Agreement. This allocation covers your use of all AI-powered features within the platform.
+
+Annual reset — use it or lose it
+The AI Token allocation resets each annual period. Unused tokens lapse at the end of each year and are non-refundable. Tokens do not carry forward to the next period.
+
+On exhaustion — AI features pause
+When your Annual Token Allocation is fully consumed: (a) AI-powered features will be automatically suspended for the remainder of that annual period; (b) all non-AI platform features continue to operate normally; and (c) you may purchase an additional token block by executing a written amendment at VerionAI's then-current pricing.
+
+Token monitoring: VerionAI will endeavour to provide visibility into your token consumption through the platform's administrative dashboard. This feature is subject to availability during the Pilot Period.
+Section 07
+Payment Terms
+All fees are as stated in Schedule 1 of your Pilot Agreement. Fees are due within 30 days of invoice date. Unpaid fees accrue interest at 18% per annum from the due date.
+
+All fees are exclusive of applicable GST. GST at the prevailing rate will be charged separately on each invoice. Provide your GSTIN to VerionAI before your Pilot Agreement is executed. Issue Withholding Tax certificates (Form 16A) within timelines prescribed by law.
+
+Payment is not dependent on completion of any implementation. VerionAI may suspend access if any undisputed payment remains outstanding for more than 15 days after the due date.
+
+Section 08
+As-Is Service During Pilot
+Please read carefully. Verion Engage is provided on a best-efforts, as-is basis during the Pilot Period. No formal SLA or uptime guarantee applies.
+VerionAI will use commercially reasonable efforts to maintain service availability. However, VerionAI bears no liability for downtime, data loss, service interruption, or feature change during the Pilot Period, beyond the refund mechanism described in Section 17.
+
+The platform is in active development. Features, performance, integrations, and availability may evolve during the Pilot Period. Nothing in the Pilot Agreement or these Terms constitutes a guarantee of feature completeness or fitness for a particular production use case.
+
+VerionAI's delivery obligation is limited to Platform Provisioning — providing your administrator login credentials and platform access link. Configuration, user onboarding, and day-to-day operation are entirely your responsibility.
+
+Section 09
+Data Protection and Privacy
+Both parties acknowledge the existence of the Digital Personal Data Protection Act, 2023 (India) ("DPDP Act") and agree to comply with applicable data protection laws to the extent within their respective reasonable control.
+
+Important limitation: Full technical compliance with all provisions of the DPDP Act — including data localisation and data residency requirements — cannot be guaranteed by VerionAI during the Pilot Period due to third-party hosting infrastructure. See Section 10.
+Your responsibilities: You are solely responsible for:
+
+Determining what personal data your organisation submits to the platform
+Obtaining all necessary consents and notices from your employees before their data is submitted
+Notifying your employees that their personal data will be processed on third-party cloud infrastructure that may be located outside India
+Assessing whether the platform is suitable for your regulatory environment before submitting personal data
+Complying with all data subject rights obligations under applicable law
+VerionAI bears no liability for your failure to obtain appropriate consents or comply with data subject rights.
+
+Section 10
+Hosting and Infrastructure Limitations
+Please read and acknowledge. By signing the Pilot Agreement, you confirm you have read and accepted the limitations in this section.
+The Cloud Services are built and hosted on third-party cloud infrastructure, currently including:
+
+Replit — application hosting and deployment
+Neon — database hosting
+VerionAI does not own, operate, or control the physical servers. The geographic location of servers is determined by the Hosting Provider and may be outside India. Customer Data, including employee personal data, may be stored and processed on servers in the United States or other jurisdictions.
+
+Replit maintains a publicly available Data Processing Addendum (DPA) which governs how Replit processes data within applications hosted on its platform. You may review Replit's DPA at: replit.com/dpa. By accepting these Terms, you acknowledge that you have had the opportunity to review Replit's DPA and that your Customer Data is subject to Replit's data processing terms in addition to VerionAI's obligations under these Terms. VerionAI is not a party to and bears no responsibility for Replit's DPA or any obligations arising under it.
+
+By signing the Pilot Agreement, you expressly acknowledge and accept all of the following:
+
+VerionAI cannot guarantee data localisation within India during the Pilot Period
+VerionAI cannot guarantee compliance with DPDP Act data residency requirements during the Pilot Period
+VerionAI is not liable for any data breach, loss, unauthorised access, or regulatory penalty arising from acts or omissions of the Hosting Providers
+In the event of a data breach at infrastructure level, VerionAI's obligation is limited to notifying you promptly upon becoming aware and cooperating in your response to the extent within VerionAI's knowledge and control
+You have independently assessed and accepted these risks as a condition of entering the Pilot Agreement
+Section 11
+Sensitive Data Warning
+Strong advisory. VerionAI strongly advises against submitting highly sensitive personal data during the Pilot Period.
+Given the hosting infrastructure limitations described in Section 10, VerionAI strongly advises you not to submit the following categories of data to the platform during the Pilot Period:
+
+Government-issued identification numbers — Aadhaar, PAN, Passport numbers
+Financial account details, bank account numbers, or payment card information
+Biometric data of any kind
+Medical, health, or insurance information
+Any data classified as sensitive personal data under the DPDP Act or applicable law
+VerionAI bears no liability for any loss, breach, or regulatory consequence arising from your decision to submit such data. If you nevertheless choose to submit sensitive personal data, you do so entirely at your own risk with full acknowledgement of the limitations in Section 10.
+
+Section 12
+Intellectual Property
+VerionAI IP: Verion AI Private Limited retains all right, title, and interest in and to the platform, all underlying software, AI models, algorithms, frameworks, methodologies, documentation, and any enhancements thereto. No rights in VerionAI's IP are transferred to you.
+
+Customer Data: You retain ownership of all data you submit to the platform. You grant VerionAI a limited licence to process your data solely to provide the Cloud Services during the subscription period.
+
+Aggregated data: VerionAI may use anonymised, aggregated, de-identified data derived from platform usage to improve the platform, provided such data does not identify your organisation or any individual.
+
+Feedback: Any suggestions or feedback you provide regarding the platform may be used by VerionAI freely without obligation to you.
+
+Section 13
+Confidentiality
+Each party will hold in strict confidence all non-public information of the other party that is designated as confidential or that reasonably should be understood to be confidential. Confidential Information will be used only for the purposes of the Pilot Agreement and not disclosed to third parties without prior written consent.
+
+Confidentiality obligations survive for 3 years after termination or expiry of the Pilot Agreement.
+
+Section 14
+Acceptable Use Policy
+You shall not use the platform to:
+
+Upload unlawful, defamatory, threatening, abusive, or objectionable content
+Infringe any third-party intellectual property or privacy rights
+Upload or introduce malicious code, viruses, or harmful data
+Conduct network attacks or penetration testing without VerionAI's prior written consent
+Attempt to gain unauthorised access to any VerionAI system or account
+Violate applicable export control, sanctions, or anti-money laundering laws
+Process special category personal data without informing VerionAI in advance
+VerionAI may immediately suspend your access if it reasonably believes you are in breach of this policy.
+
+Section 15
+Warranties and Disclaimer
+VerionAI warrants that it has the right to grant the licence in Section 3 and will provide the platform with reasonable skill and care.
+
+EXCEPT AS ABOVE, THE CLOUD SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE" DURING THE PILOT PERIOD. VERIONAI MAKES NO WARRANTY AS TO UPTIME, ERROR-FREE OPERATION, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. AI-GENERATED OUTPUTS ARE PROVIDED FOR INFORMATIONAL PURPOSES ONLY. CUSTOMER ASSUMES SOLE RESPONSIBILITY FOR ANY DECISIONS MADE ON THE BASIS OF SUCH OUTPUTS.
+
+Section 16
+Limitation of Liability
+Cap on liability: VerionAI's total aggregate liability under the Pilot Agreement and these Terms shall not exceed the total fees actually paid by you to VerionAI up to the date of the claim.
+
+Exclusions: Neither party shall be liable for indirect, consequential, special, punitive, or exemplary damages including loss of profits, revenue, data, or goodwill, even if advised of the possibility of such damages.
+
+Your indemnity: You shall indemnify and hold harmless Verion AI Private Limited, its directors, founders, employees, and agents from third-party claims arising from: your breach of these Terms; excess or unauthorised use of the platform; the content of your data; or your violation of applicable law.
+
+Section 17
+Term and Termination
+Mutual exit: Either party may terminate the Pilot Agreement during the Pilot Period with 30 days' written notice, without cause and without penalty. If VerionAI terminates without cause, a pro-rata refund of prepaid fees will be provided for the unexpired period.
+
+Termination for cause: Either party may terminate immediately if the other commits a material breach and fails to cure it within 30 days of written notice.
+
+Non-payment: VerionAI may suspend access after 15 days of an overdue undisputed payment and terminate after 30 days.
+
+On termination: Your licence ceases immediately. VerionAI will provide a 30-day data export window. All outstanding fees become due. Each party returns the other's Confidential Information.
+
+Section 18
+Product Decommission and Company Wind-Down
+Product discontinuation
+If VerionAI resolves to discontinue Verion Engage during the Pilot Period, VerionAI will: (a) provide at least 60 days' prior written notice; (b) maintain platform access during the notice period; (c) provide a 30-day data export window; and (d) refund a pro-rata portion of prepaid fees for the period after discontinuation.
+
+Company wind-down
+If Verion AI Private Limited resolves to wind down its business during the Pilot Period, VerionAI will: (a) provide at least 60 days' prior written notice; (b) provide a 30-day data export window; and (c) refund a pro-rata portion of prepaid fees for the unexpired period.
+
+Upon such refund being made, VerionAI's total liability is fully and finally discharged. You shall have no further claim against Verion AI Private Limited, its directors, founders, shareholders, employees, or affiliates in connection with the discontinuation or wind-down.
+
+Section 19
+First Mover Pricing Lock
+The pricing in Schedule 1 of your Pilot Agreement is your First Mover Price, offered at a preferential rate in recognition of your early adoption.
+
+Subject to you executing a formal Order Form within 30 days of Pilot Period expiry, your First Mover Price per user and AI Token rate will be locked for a further 2 years from the Conversion Date — providing a total of 3 years at First Mover pricing (1-year Pilot + 2 years post-conversion).
+
+The Pricing Lock applies only if: you have not materially breached the Pilot Agreement; you execute the Order Form within 30 days of Pilot Period end; and the subscribed User Limit and module scope remain the same or greater. If you do not execute the Order Form in time, the Pricing Lock lapses and VerionAI may offer standard pricing.
+
+Section 20
+Partner Programme
+If an implementation or referral partner is identified in your Pilot Agreement, you agree that such partner may share with VerionAI information provided by you as evidence of partner activities. VerionAI's remuneration of the partner will not affect your pricing or VerionAI's obligations to you.
+
+Section 21
+General Provisions
+Governing Law: These Terms and the Pilot Agreement are governed by the laws of India.
+Disputes: Disputes will be resolved by binding arbitration in Gurugram, Haryana, India under the Arbitration and Conciliation Act, 1996, conducted in English by a sole mutually agreed arbitrator.
+Jurisdiction: Subject to arbitration, the courts of Gurugram, Haryana shall have exclusive jurisdiction.
+Entire Agreement: The Pilot Agreement (including Schedule 1) and these Terms constitute the entire agreement between the parties.
+Amendments: No amendment is effective unless in writing and signed by both parties.
+Assignment: You may not assign the Pilot Agreement without VerionAI's written consent.
+Force Majeure: Neither party is liable for delays caused by events beyond its reasonable control.
+Severability: If any provision is held invalid, the remaining provisions continue in full force.
+Electronic Signatures: Electronic signatures are valid and binding.
+Updates to Terms: VerionAI may update these Terms from time to time. Material changes will be notified to active customers by email at least 30 days before taking effect. Continued use of the platform after the effective date of changes constitutes acceptance.
+Section 22
+Contact
+For any questions about these Terms, data handling, or your subscription:
+
+Verion AI Private Limited
+346, 219 2F, ILD Trade Centre, Sector 47, Sohna Road
+Gurugram – 122018, Haryana, India
+CIN: U62090HR2026PTC142622
+
+E: info@verionai.in
+W: verionai.in
