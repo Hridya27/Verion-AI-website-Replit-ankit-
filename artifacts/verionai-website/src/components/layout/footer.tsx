@@ -73,6 +73,7 @@ export function Footer() {
         <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">© 2026 VerionAI Pvt Ltd — Architecting the Autonomous Enterprise.</p>
           <div className="flex items-center gap-6 text-sm">
+            <Link href="/terms-of-use" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Use</Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy (AI Ethics)</Link>
             <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link>
             <a

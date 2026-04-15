@@ -14,6 +14,7 @@ import HowItWorks from "@/pages/how-it-works";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import Connect from "@/pages/connect";
+import TermsOfUse from "@/pages/terms-of-use";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function Router() {
       <ScrollToTop />
       <Switch>
         <Route path="/connect" component={Connect} />
+        <Route path="/terms-of-use" component={TermsOfUse} />
         <Route>
           <Layout>
             <Switch>
