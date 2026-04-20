@@ -6,15 +6,3 @@ id = "41PudT68I4U_rsdhFXpm2"
 uri = "file://brand-identity/VerionAI-Brand-Identity.docx"
 type = "word_document"
 title = "VerionAI Brand Identity Guidelines"
-
-[[outputs]]
-id = "npk3cLEHqaN0NJS3jecoK"
-uri = "file://attached_assets/verionai-logo-light.svg"
-type = "image"
-title = "VerionAI Logo — Light (white background)"
-
-[[outputs]]
-id = "8n4kN-Uyb2mrxq-IHz_3P"
-uri = "file://attached_assets/verionai-logo-dark.svg"
-type = "image"
-title = "VerionAI Logo — Dark background"

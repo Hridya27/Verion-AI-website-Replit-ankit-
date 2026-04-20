@@ -6,16 +6,16 @@ const PINK = "#D4196A";
 
 function BreathingBars() {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "12px", flexShrink: 0, transform: "translate(-2px, -2px)" }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "11px", flexShrink: 0 }}>
       <motion.span
         animate={{ scaleY: [0.35, 1, 0.35] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-        style={{ width: "2px", height: "12px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
+        style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
       />
       <motion.span
         animate={{ scaleY: [1, 0.35, 1] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-        style={{ width: "2px", height: "7px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
+        style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
       />
     </span>
   );

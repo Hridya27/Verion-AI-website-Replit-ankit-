@@ -14,16 +14,16 @@ function VerionAILogo() {
     <Link href="/" className="flex items-center">
       <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 800, fontSize: "18px", letterSpacing: "-0.03em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "4px", userSelect: "none" }}>
         <span style={{ color: PINK }}>Verion</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "12px", flexShrink: 0, transform: "translate(-2px, -2px)" }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "11px", flexShrink: 0 }}>
           <motion.span
             animate={{ scaleY: [0.35, 1, 0.35] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-            style={{ width: "2px", height: "12px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
+            style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
           />
           <motion.span
             animate={{ scaleY: [1, 0.35, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-            style={{ width: "2px", height: "7px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
+            style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
           />
         </span>
         <span style={{ color: BLACK }}>ai</span>
