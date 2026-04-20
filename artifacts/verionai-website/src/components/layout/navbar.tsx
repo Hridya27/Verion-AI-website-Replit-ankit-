@@ -17,7 +17,7 @@ const PINK = "#D4196A";
 
 function BreathingBars() {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: "2.5px", height: "15px", flexShrink: 0 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: "2.5px", height: "15px", flexShrink: 0, transform: "translate(-2px, -2px)" }}>
       <motion.span
         animate={{ scaleY: [0.35, 1, 0.35] }}
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}

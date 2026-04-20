@@ -14,7 +14,7 @@ function VerionAILogo() {
     <Link href="/" className="flex items-center">
       <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 800, fontSize: "18px", letterSpacing: "-0.03em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "4px", userSelect: "none" }}>
         <span style={{ color: PINK }}>Verion</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "12px", flexShrink: 0 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "12px", flexShrink: 0, transform: "translate(-2px, -2px)" }}>
           <motion.span
             animate={{ scaleY: [0.35, 1, 0.35] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
