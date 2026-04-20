@@ -17,16 +17,16 @@ function VerionAILogo({ dark = false }: { dark?: boolean }) {
     <Link href="/" className="flex items-center gap-2">
       <span style={{ fontWeight: 700, fontSize: "1.15rem", letterSpacing: "-0.01em", lineHeight: 1, display: "inline-flex", alignItems: "center", gap: "4px" }}>
         <span style={{ color: PINK }}>Verion</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "11px", flexShrink: 0 }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", height: "12px", flexShrink: 0 }}>
           <motion.span
             animate={{ scaleY: [0.35, 1, 0.35] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-            style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
+            style={{ width: "2px", height: "12px", borderRadius: "99px", backgroundColor: BLACK, display: "block", transformOrigin: "center" }}
           />
           <motion.span
             animate={{ scaleY: [1, 0.35, 1] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
-            style={{ width: "2px", height: "11px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
+            style={{ width: "2px", height: "7px", borderRadius: "99px", backgroundColor: PINK, display: "block", transformOrigin: "center" }}
           />
         </span>
         <span style={{ color: dark ? "#fff" : BLACK }}>ai</span>

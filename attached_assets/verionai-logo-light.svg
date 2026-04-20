@@ -5,9 +5,11 @@
         text { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; font-weight: 800; letter-spacing: -0.03em; }
       </style>
     </defs>
-    <rect width="420" height="100" fill="#FFFFFF" rx="0"/>
+    <rect width="420" height="100" fill="#FFFFFF"/>
     <text x="20" y="62" font-size="64" fill="#D4196A">Verion</text>
-    <rect x="255" y="28" width="8" height="44" rx="4" fill="#111827"/>
-    <rect x="268" y="28" width="8" height="44" rx="4" fill="#D4196A"/>
-    <text x="284" y="62" font-size="64" fill="#111827">ai</text>
+    <!-- tall bar (left) -->
+    <rect x="254" y="28" width="8" height="44" rx="4" fill="#111827"/>
+    <!-- short bar (right) -->
+    <rect x="270" y="37" width="8" height="26" rx="4" fill="#D4196A"/>
+    <text x="278" y="62" font-size="64" fill="#111827">ai</text>
   </svg>
